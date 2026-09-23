@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Taller 2 · Punto 4. Aportes normativos específicos y brechas de cobertura</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm 16mm;
+      @top-left {
+        content: "Universidad del Valle  ·  Taller 2  ·  Punto 4";
+        font-family: "Liberation Sans", sans-serif;
+        font-size: 8.5pt;
+        color: #5c6570;
+      }
+      @top-right {
+        content: "FinanCali S.A.S.  ·  Scoring de riesgo crediticio";
+        font-family: "Liberation Sans", sans-serif;
+        font-size: 8.5pt;
+        color: #5c6570;
+      }
+      @bottom-center {
+        content: counter(page);
+        font-family: "Liberation Sans", sans-serif;
+        font-size: 9pt;
+        color: #5c6570;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html { hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+
+    body {
+      margin: 0;
+      color: #1c1917;
+      font-family: "Liberation Serif", "Times New Roman", serif;
+      font-size: 11pt;
+      line-height: 1.45;
+    }
+
+    header.cover {
+      border-top: 3px solid #1e3a5f;
+      padding-top: 10px;
+      margin-bottom: 16px;
+    }
+
+    .institution {
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 8.5pt;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #1e3a5f;
+      line-height: 1.35;
+      margin: 0 0 10px 0;
+    }
+
+    h1 {
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 16.5pt;
+      line-height: 1.2;
+      color: #1e3a5f;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+    }
+
+    .subtitle {
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 11pt;
+      color: #3f4a57;
+      margin: 0 0 10px 0;
+    }
+
+    .meta {
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 9pt;
+      color: #3f4a57;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .scope {
+      background: #f4f1ea;
+      border-left: 3px solid #1e3a5f;
+      padding: 8px 12px;
+      margin: 14px 0 8px 0;
+      font-size: 10pt;
+    }
+
+    h2 {
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 13pt;
+      color: #1e3a5f;
+      margin: 18px 0 6px 0;
+      padding-top: 4px;
+      border-top: 1px solid #d6d3cd;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 11.5pt;
+      color: #1e3a5f;
+      margin: 13px 0 4px 0;
+      page-break-after: avoid;
+    }
+
+    p { margin: 0 0 8px 0; orphans: 3; widows: 3; }
+
+    strong { font-weight: 700; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px 0;
+      font-size: 8.7pt;
+      line-height: 1.32;
+      page-break-inside: auto;
+    }
+
+    th {
+      font-family: "Liberation Sans", sans-serif;
+      background: #1e3a5f;
+      color: #fff;
+      text-align: left;
+      font-weight: 600;
+      padding: 5px 6px;
+      vertical-align: top;
+    }
+
+    td {
+      padding: 5px 6px;
+      vertical-align: top;
+      border-bottom: 1px solid #e4e0d8;
+    }
+
+    tr { break-inside: avoid; page-break-inside: avoid; }
+
+    tbody tr:nth-child(even) td { background: #faf8f5; }
+
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin-bottom: 4px;
+    }
+
+    .layers {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 8px 0 12px 0;
+      page-break-inside: avoid;
+    }
+
+    .layer {
+      padding: 7px 10px;
+      border: 1px solid #d6d3cd;
+    }
+
+    .layer + .layer { border-top: none; }
+
+    .layer .kicker {
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 8pt;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 2px 0;
+    }
+
+    .layer p { margin: 0; font-size: 9.5pt; }
+
+    .layer.platform { background: #eef3f8; }
+    .layer.platform .kicker { color: #1e3a5f; }
+    .layer.norms { background: #f3f6f1; }
+    .layer.norms .kicker { color: #1f4d32; }
+    .layer.gap { background: #faf3ee; }
+    .layer.gap .kicker { color: #7c2d12; }
+
+    ol.refs {
+      margin: 6px 0 0 0;
+      padding-left: 1.3em;
+      font-size: 9pt;
+      line-height: 1.35;
+    }
+
+    ol.refs li { margin-bottom: 4px; }
+
+    a { color: #1e3a5f; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="cover">
+    <p class="institution">
+      Universidad del Valle<br />
+      Facultad de Ingeniería — Escuela de Sistemas<br />
+      Maestría en Desarrollo de Aplicaciones Inteligentes<br />
+      Seguridad en el Desarrollo de Aplicaciones · Módulo Dos
+    </p>
+    <h1>Punto 4. Aportes normativos específicos y brechas de cobertura</h1>
+    <p class="subtitle">Taller 2. Marcos de trabajo de ciberseguridad · FinanCali S.A.S.</p>
+    <p class="meta">
+      Miguel Ángel Rincón — 2502619-7729<br />
+      Maria Paula Jimenez I — 2507713-7729<br />
+      David Steven Duran Vallejo — 2508228-7729
+    </p>
+  </header>
+
+  <div class="scope">
+    Este documento desarrolla de forma exclusiva el Punto 4. Parte del caso de uso, de la estimación de madurez y del panorama normativo fijados en el Taller 1, y de la selección de NIST CSF 2.0 hecha en el Punto 2. No reabre la comparación entre marcos ni desarrolla el Punto 3.
+  </div>
+
+  <h2>4.1. Objeto y criterio de lectura</h2>
+
+  <p>
+    El Módulo Dos pide identificar qué elementos del sistema de scoring escapan al marco de ciberseguridad seleccionado, distinguir cuáles de ellos quedan atendidos por los marcos normativos de inteligencia artificial ya identificados y cuáles permanecen sin cobertura, y argumentar por qué la protección del sistema exige los dos tipos de referente. La respuesta se construye sobre hechos ya documentados, no sobre un catálogo genérico de riesgos de la IA.
+  </p>
+
+  <p>
+    Esos hechos son los siguientes. FinanCali es una fintech colombiana de unos 50 empleados, sin área de seguridad ni rol de gobernanza de IA, que origina crédito de consumo por canales web y móvil. El caso de uso produce un score de 0 a 100 con un modelo supervisado de datos tabulares, entrenado por lotes y sin reentrenamiento automático en producción. El motor aprueba o rechaza los extremos y envía la franja intermedia a un analista. Las variables incluyen ingresos, historial crediticio, antigüedad laboral, endeudamiento y comportamiento de pago, tomadas de la declaración del solicitante, del historial interno y de centrales de riesgo. El servicio es un microservicio en la nube, expuesto por una API REST interna. Se conservan la solicitud, las variables y el score para auditoría. El volumen es de cientos de solicitudes diarias. La operación del escenario base se financia con recursos propios y no está, por ese solo hecho, bajo vigilancia de la Superintendencia Financiera de Colombia. El modelo puede ser interno o adquirido, y la infraestructura puede estar por fuera del país.
+  </p>
+
+  <p>
+    Se usan dos juicios distintos, y conviene no mezclarlos. Un elemento está <strong>atendido</strong> cuando un referente del Taller 1 formula un deber o un resultado que lo cubre. Eso no afirma que FinanCali ya lo practique: la madurez inicial muestra lo contrario en varios puntos. Un elemento <strong>permanece sin cobertura adecuada</strong> cuando, sumados el CSF 2.0 y esos referentes, ninguno fija una exigencia lo bastante específica para proteger este sistema en ese punto. La deuda de adopción se cierra ejerciendo un referente que ya se tiene. La brecha de cobertura no se cierra adoptando otro marco del mismo nivel: exige una decisión de diseño especializada.
+  </p>
+
+  <h2>4.2. Límite de NIST CSF 2.0 en este caso</h2>
+
+  <p>
+    NIST CSF 2.0 sigue siendo el marco pertinente para la capa que el Punto 2 le asignó: la gestión del riesgo de ciberseguridad de la organización y de la plataforma del scoring. El propio marco delimita esa capa. Al tratar las tecnologías emergentes, señala que la inteligencia artificial conlleva riesgos de ciberseguridad y de privacidad y, además, otros riesgos, y remite esos otros riesgos al NIST AI RMF. En la misma línea, distingue la pérdida de confidencialidad, integridad y disponibilidad de los problemas que nacen del tratamiento mismo de los datos, entre ellos la discriminación y la pérdida económica, que no dependen de un incidente de ciberseguridad [1].
+  </p>
+
+  <p>
+    La tabla siguiente fija ese límite sobre componentes concretos del caso. Es representativa: muestra dónde el CSF sí responde a las brechas de madurez del Taller 1 y dónde su resultado, aunque se cumpla, deja intacto el problema del modelo.
+  </p>
+
+  <table>
+    <caption>Tabla 1. Resultados de NIST CSF 2.0 que sí alcanzan al scoring, y su límite</caption>
+    <thead>
+      <tr>
+        <th style="width: 22%">Resultado del CSF 2.0</th>
+        <th style="width: 39%">Hecho del caso al que responde</th>
+        <th style="width: 39%">Límite frente al modelo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Gobernar: política, roles y supervisión del riesgo de ciberseguridad (GV.PO, GV.RR, GV.OV)</td>
+        <td>Hoy no hay política formal ni comité; las decisiones las toma el equipo técnico.</td>
+        <td>Organiza la gobernanza de la ciberseguridad. No crea la rendición de cuentas por el comportamiento del score ni por su efecto sobre el solicitante.</td>
+      </tr>
+      <tr>
+        <td>Gobernar: riesgo de ciberseguridad de la cadena de suministro (GV.SC)</td>
+        <td>El flujo depende de centrales de riesgo, de un posible proveedor del modelo y de servicios de nube.</td>
+        <td>Fija expectativas de ciberseguridad hacia el tercero. No examina la equidad, la explicabilidad ni la base de datos de entrenamiento de un modelo adquirido.</td>
+      </tr>
+      <tr>
+        <td>Identificar: activos y riesgos (ID.AM, ID.RA)</td>
+        <td>El inventario de aplicación, API, bases, credenciales, modelo y nube es parcial.</td>
+        <td>El modelo entra como activo. Las variables no entran como factores cuya legitimidad para negar un crédito deba justificarse.</td>
+      </tr>
+      <tr>
+        <td>Proteger: acceso y seguridad de los datos (PR.AA, PR.DS)</td>
+        <td>Hay acceso privilegiado al conjunto de entrenamiento y tokens de integración con fuentes externas.</td>
+        <td>Reduce la adulteración, la pérdida y el acceso no autorizado. Un dato intacto puede seguir siendo incompleto, desactualizado o no representativo.</td>
+      </tr>
+      <tr>
+        <td>Detectar: monitoreo y análisis de eventos adversos (DE.CM, DE.AE)</td>
+        <td>No hay monitoreo de anomalías de la API ni del comportamiento del modelo; solo se observa la disponibilidad del servicio.</td>
+        <td>DE.CM puede cerrar el vacío de anomalías de seguridad. La deriva, el sesgo y la caída de desempeño no son, por sí solos, eventos adversos de ciberseguridad.</td>
+      </tr>
+      <tr>
+        <td>Responder y Recuperar (RS, RC)</td>
+        <td>No hay procedimiento documentado de respuesta ni de retorno a una versión anterior del modelo.</td>
+        <td>El retorno restaura el servicio. No dice cuándo una versión es inaceptable por equidad, ni qué hacer con un score construido sobre un dato negativo que ya debió salir de la central.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    La misma frontera aparecería si el marco principal hubiera sido CIS Controls. Su fortaleza, reconocida en el Punto 2, está en las salvaguardas priorizadas sobre activos, identidades, configuración, vulnerabilidades y monitoreo técnico. Esas salvaguardas refuerzan la columna izquierda de la tabla. No miden la equidad de un score, no explican una decisión de crédito y no incorporan las reglas del habeas data financiero. La conclusión de este punto no depende, por tanto, de revertir la selección: CIS Controls permanece como complemento técnico de la plataforma, que es el papel que el Punto 2 ya le reservó.
+  </p>
+
+  <h2>4.3. Elementos que escapan al CSF y referente que los atiende</h2>
+
+  <p>
+    Los siete elementos siguientes salen de las dimensiones del caso de uso y de las brechas de madurez. En cada uno se indica el referente del Taller 1 que lo atiende y el alcance real de esa atención. Los identificadores B1 a B7 anticipan las brechas de la sección 4.4, para que un elemento pueda estar atendido en el nivel del resultado y, aun así, dejar una decisión sin especificar.
+  </p>
+
+  <table>
+    <caption>Tabla 2. Elementos del scoring que escapan a NIST CSF 2.0</caption>
+    <thead>
+      <tr>
+        <th style="width: 18%">Elemento</th>
+        <th style="width: 27%">Hecho del caso que lo activa</th>
+        <th style="width: 27%">Por qué el CSF 2.0 no lo cubre</th>
+        <th style="width: 28%">Referente del Taller 1 que lo atiende</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>E1.</strong> Gobernanza del ciclo de vida del modelo</td>
+        <td>No existe rol ni comité de gobernanza de IA. El modelo está en producción y las decisiones sobre él son ad hoc.</td>
+        <td>GV asigna responsables del riesgo de ciberseguridad, no del ciclo de entrenamiento, validación, aprobación y retiro del modelo.</td>
+        <td>NIST AI RMF 1.0, función GOVERN; ISO/IEC 42001 como sistema de gestión; ISO/IEC 23894 como guía de riesgo. El CONPES 4144, eje de ética y gobernanza, solo como política pública [2] [3] [4] [5].</td>
+      </tr>
+      <tr>
+        <td><strong>E2.</strong> Monitoreo del comportamiento del modelo</td>
+        <td>Se vigila la disponibilidad. No hay seguimiento de deriva ni de sesgo. El modelo no se reentrena solo, así que el deterioro no se corrige por inercia.</td>
+        <td>DE.CM observa el entorno tecnológico en busca de eventos de ciberseguridad. Un score que empeora puede producirse con la API sana y el servicio disponible.</td>
+        <td>AI RMF, MEASURE 2.11 y MEASURE 3.1, que piden evaluar equidad y sesgo y seguir los riesgos a lo largo del tiempo; ISO/IEC 42001, en la gestión del ciclo de vida del sistema; ISO/IEC 23894, en el tratamiento del riesgo [2] [3] [4].</td>
+      </tr>
+      <tr>
+        <td><strong>E3.</strong> Equidad de la decisión automática</td>
+        <td>La población afectada son personas naturales de distintos perfiles socioeconómicos. Ingresos, antigüedad laboral y endeudamiento participan en un rechazo que, en los extremos, nadie revisa.</td>
+        <td>El CSF no caracteriza impactos sobre grupos de personas. La discriminación y la pérdida económica por el tratamiento están, en su propio texto, fuera del incidente de ciberseguridad [1].</td>
+        <td>AI RMF, caracterización de impactos en MAP y MEASURE 2.11. La Circular Externa 002 de 2024 incluye los sesgos humanos y las fallas de diseño entre las contingencias del sistema de administración de riesgos. El CONPES 4144, eje de mitigación de riesgos, orienta la política y no fija un umbral. Queda abierta B2 [2] [6] [5].</td>
+      </tr>
+      <tr>
+        <td><strong>E4.</strong> Explicación del score</td>
+        <td>La salida es un número de 0 a 100 producido por un modelo de boosting sobre datos tabulares. El solicitante solo ve el canal web o móvil. El analista interviene en la franja intermedia.</td>
+        <td>Ninguna función del CSF exige que el resultado de un modelo sea interpretable para quien decide ni comprensible para quien soporta la decisión.</td>
+        <td>AI RMF, MEASURE 2.9: explicar, validar y documentar el modelo e interpretar la salida en su contexto. Circular 002 de 2024, numeral VII: información sobre el tratamiento. Ley 1581 de 2012, principio de transparencia. La explicación escrita de las razones del rechazo, en la Ley 1266, tiene un destinatario más estrecho: ver B3 [2] [6] [7] [8].</td>
+      </tr>
+      <tr>
+        <td><strong>E5.</strong> Proporcionalidad, calidad e impacto de privacidad</td>
+        <td>Se tratan datos personales, financieros y crediticios identificables, con posibilidad de inferir información socioeconómica, para una decisión que condiciona el acceso al crédito.</td>
+        <td>PR.DS protege confidencialidad, integridad y disponibilidad. No aplica el juicio de idoneidad, necesidad, razonabilidad y proporcionalidad, ni ordena un estudio de impacto previo al diseño.</td>
+        <td>Circular 002 de 2024, numerales I, III, IV, V y X; principios de la Ley 1581 de 2012; AI RMF, MEASURE 2.10. El numeral VIII de la circular, limitado a medidas de seguridad del dato, sí se apoya en el CSF: es zona de solapamiento, no aporte exclusivo. Queda abierta B6 [6] [7] [2].</td>
+      </tr>
+      <tr>
+        <td><strong>E6.</strong> Supervisión humana de la decisión semiautónoma</td>
+        <td>Hay un analista en la franja intermedia y un flujo manual si el servicio cae. Los extremos se deciden solos. El equipo es reducido y el volumen es de cientos de solicitudes al día.</td>
+        <td>El CSF no diseña la frontera entre la decisión automática y la revisión humana, ni la autoridad para revocar un score.</td>
+        <td>AI RMF, al establecer el contexto de uso y los impactos sobre las personas, e ISO/IEC 42001, en el uso responsable del sistema. El Reglamento (UE) 2024/1689 serviría de contraste si el sistema entrara en su ámbito, y hoy no entra. Queda abierta B4 [2] [3] [9].</td>
+      </tr>
+      <tr>
+        <td><strong>E7.</strong> Reglas de habeas data sobre la lógica y la vigencia del score</td>
+        <td>Cada solicitud consulta centrales de riesgo. El score se conserva, junto con las variables que lo produjeron, para auditoría interna.</td>
+        <td>Ninguna categoría del CSF prohíbe fundar el crédito solo en el incumplimiento reportado, ni ordena actualizar una medición cuando el dato negativo se retira.</td>
+        <td>Ley 1266 de 2008, modificada por la Ley 2157 de 2021: valoración concurrente y prohibición de decidir exclusivamente con el reporte negativo; actualización de la medición asociada al dato negativo; la consulta hecha por el titular no puede disminuir el score. Queda abierta B5 [8].</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Alcance real de cada bloque normativo</h3>
+
+  <p>
+    La Circular Externa 002 de 2024 de la Superintendencia de Industria y Comercio es el referente colombiano que más directamente cubre el tratamiento de datos personales dentro del modelo. Exige ponderar idoneidad, necesidad, razonabilidad y proporcionalidad; administrar los riesgos de ese tratamiento, con mención expresa de sesgos humanos, fallas técnicas, vulnerabilidades de seguridad y fallas de diseño; documentar un estudio de impacto de privacidad antes del diseño cuando el alto riesgo para los titulares sea probable; usar datos veraces, completos, exactos, actualizados, comprobables y comprensibles; y disponer de medios demostrables para los derechos de los titulares [6]. El score de FinanCali incide en el acceso al crédito y se alimenta de datos identificables: el supuesto de alto riesgo del numeral IV se cumple con los hechos del caso. El estudio de impacto, por tanto, es deuda de adopción de un deber ya aplicable, no una brecha de cobertura. El sistema, además, ya está en producción, de modo que el estudio deja de ser una condición de diseño y pasa a ser una evaluación sobre un tratamiento que ya ocurre.
+  </p>
+
+  <p>
+    La Ley 1266 de 2008, en el texto que le da la Ley 2157 de 2021, cubre la lógica crediticia que ningún marco de ciberseguridad contiene. El usuario de la información debe valorarla de forma concurrente con otros factores que técnicamente incidan en el estudio de riesgo, y no puede decidir una solicitud apoyándose solo en el incumplimiento suministrado por el operador [8]. Esa regla alcanza a FinanCali en el escenario base, porque consulta centrales y decide crédito, con independencia de que la Superintendencia Financiera no la vigile. El parágrafo 3 del artículo 13 exige actualizar de manera simultánea la información negativa asociada a calificaciones o scorings cuando se retire el dato negativo o cese el hecho que disminuyó la medición. Por su ubicación, el parágrafo regula la permanencia en las bases de los operadores. Aun con esa lectura restrictiva, produce un efecto de diseño en FinanCali: las variables conservadas para auditoría no pueden reutilizarse en una decisión nueva, en un reentrenamiento o en el monitoreo como si el dato negativo siguiera vigente. El parágrafo 2 del artículo 10 añade un límite de features: la consulta del historial por el propio titular no puede disminuir el score. Conviene verificar que el diccionario de variables no esté usando el número de consultas como proxy del historial crediticio.
+  </p>
+
+  <p>
+    Hay una precisión que evita sobrerrepresentar esa ley. La indicación escrita de las razones objetivas del rechazo, y la sanción asociada, están predicadas de la institución del sistema financiero y asegurador y de la Superintendencia Financiera [8]. En el escenario base FinanCali no forma parte de ese sistema. La prohibición de decidir solo con el reporte negativo sí le aplica; el deber documental de explicar el rechazo, tal como esa frase lo redacta, no es su gancho principal. La explicación del score queda entonces repartida entre MEASURE 2.9, el numeral VII de la Circular 002 y el principio de transparencia de la Ley 1581, ninguno de los cuales define el artefacto que el solicitante recibe. Ese residuo es B3.
+  </p>
+
+  <p>
+    Los marcos voluntarios cubren los resultados de confianza que la circular y la ley no especifican. El AI RMF 1.0 pide gobernar el riesgo de IA, caracterizar impactos sobre personas y grupos, explicar el modelo, examinar el riesgo de privacidad, evaluar equidad y sesgo, evaluar seguridad y resiliencia, y seguir los riesgos en el tiempo [2]. ISO/IEC 42001 ofrece el sistema de gestión para convertir esos resultados en política, roles, evaluación de impacto, datos para la IA, ciclo de vida y relación con proveedores [3]. ISO/IEC 23894 orienta el proceso de identificar, analizar, evaluar y tratar el riesgo de IA, sin ser un sistema certificable ni un catálogo de controles de crédito [4]. Los tres fueron recomendados en el Taller 1 precisamente con esa función. Siguen siendo voluntarios. Atender E1, E2 y la parte de medición de E3 no los convierte en obligaciones de la Superintendencia de Industria y Comercio.
+  </p>
+
+  <p>
+    Dos referentes del panorama orientan y no atienden el caso como deber. El CONPES 4144 de 2025 organiza la política nacional en seis ejes, entre ellos ética y gobernanza, datos e infraestructura, y mitigación de riesgos para evitar inequidades y vulneraciones de derechos, con horizonte 2025-2030 [5]. Reconoce a escala nacional el tipo de problema de E1 y E3. No impone a FinanCali un control auditable sobre este score. El Reglamento (UE) 2024/1689 tampoco se aplica a una operación exclusiva en Colombia. Su Anexo III, punto 5, letra b, clasifica como de alto riesgo los sistemas destinados a evaluar la solvencia de personas físicas o a establecer su calificación crediticia, con la excepción de la detección de fraude financiero [9]. El scoring de FinanCali cae en la regla y no en la excepción. El apartado 3 del artículo 6 impide salir de esa clasificación cuando el sistema elabora perfiles de personas naturales, y evaluar solvencia a partir de ingresos, endeudamiento y comportamiento de pago es esa elaboración de perfiles. El reglamento funciona como contraste: un régimen de alto riesgo pediría gestión del riesgo, gobernanza de datos, documentación técnica, registros, transparencia, supervisión humana, exactitud, robustez y ciberseguridad. Muestra, de nuevo, que el CSF solo ocuparía la última de esas piezas. No cubre a FinanCali mientras el sistema no entre en su ámbito territorial.
+  </p>
+
+  <p>
+    Queda fuera de esta lista, de propósito, la información al consumidor sobre las condiciones de la financiación. En el escenario base esa carga proviene de la Ley 1480 de 2011 y del Decreto 1074 de 2015, y ya está identificada en el Taller 1. No es un control de seguridad ni de gobernanza del modelo. Tratarla como brecha del CSF confundiría el cumplimiento comercial de la operación de crédito con la protección del sistema de IA. El Estatuto Orgánico del Sistema Financiero y la Ley 1328 de 2009 siguen condicionados al cambio de escenario y no se usan aquí como cobertura.
+  </p>
+
+  <h2>4.4. Brechas que permanecen sin cobertura adecuada</h2>
+
+  <p>
+    Las brechas de esta sección no se resuelven con declarar adoptados el CSF 2.0 y el conjunto normativo del Taller 1. Cada una tiene un referente cercano, y ese referente se detiene antes de la decisión que protege a las personas de este flujo.
+  </p>
+
+  <h3>B1. Pruebas de ataques que usan el modelo, no solo la plataforma</h3>
+  <p>
+    Un solicitante, o quien controle un lote de datos de entrenamiento, puede mover el score sin vulnerar la confidencialidad en el sentido de PR.DS. En un modelo tabular en producción los caminos relevantes son el envenenamiento del lote de entrenamiento, la evasión por manipulación de variables que la API acepta como legítimas, la extracción del modelo a través del servicio interno y la inferencia de pertenencia sobre las solicitudes conservadas. El CSF detecta acceso indebido, adulteración y anomalías de plataforma. MEASURE 2.7 pide evaluar y documentar la seguridad y la resiliencia del sistema de IA, y se queda en ese resultado [2]. Ni el AI RMF 1.0, ni ISO/IEC 42001, ni ISO/IEC 23894, ni la Circular 002 describen esas clases de ataque ni un ensayo para un modelo de boosting usado como umbral de aprobación automática.
+  </p>
+  <p>
+    La aproximación especializada existe y no forma parte del conjunto del Taller 1: la taxonomía de NIST AI 100-2e2025 y la base de tácticas y técnicas MITRE ATLAS [10] [11]. La implicación es concreta. FinanCali puede cerrar un perfil del CSF y una medición del AI RMF y no saber si cruzar el umbral de aprobación automática es inducible desde el formulario, o si el conjunto histórico conservado para auditoría permite reconstruir si una persona estuvo en el entrenamiento. Con cientos de decisiones al día y colas automáticas en los extremos, ese ataque desplaza decisiones de crédito, no solo registros.
+  </p>
+
+  <h3>B2. Criterio de equidad del crédito de consumo</h3>
+  <p>
+    MEASURE 2.11 ordena evaluar la equidad y el sesgo y documentar el resultado. La nota 7 de la Circular 002 incluye el sesgo humano entre las contingencias que el sistema de riesgos debe considerar. Ninguno de los dos dice qué grupos comparar, qué métrica usar ni qué disparidad es inaceptable en crédito de consumo en Colombia. No hay una ley horizontal de IA que lo haga: el Taller 1 dejó constancia de que el proyecto de ley general se archivó y de que, a la fecha de ese panorama, no había un estatuto horizontal vigente. El CONPES 4144 anuncia la mitigación de inequidades como eje de política y no sustituye ese estatuto [5].
+  </p>
+  <p>
+    La dificultad es mayor porque la Ley 2157 empuja en sentido contrario al de una prohibición simple de variables socioeconómicas. Exige valorar el incumplimiento junto con otros factores técnicamente relevantes para el estudio de riesgo [8]. Ingresos, antigüedad laboral y endeudamiento son exactamente esos factores, y son a la vez proxies del perfil socioeconómico de la población afectada. Un estudio de impacto de privacidad puede quedar aprobado y el modelo puede seguir concentrando rechazos automáticos en un grupo, sin que ningún referente analizado declare ese resultado inadmisible. La decisión que falta es un protocolo de este producto: grupos de comparación, métrica, disparidad material y consecuencia sobre las decisiones automáticas. La adopta FinanCali y la documenta. Ningún marco de los ya seleccionados la adopta por ella.
+  </p>
+
+  <h3>B3. Explicación utilizable por el solicitante y por el analista</h3>
+  <p>
+    MEASURE 2.9 cubre la explicación como característica del modelo. El numeral VII de la Circular 002 y la Ley 1581 cubren la información sobre el tratamiento. Falta el artefacto. No está definido si el solicitante recibe los factores que empujaron su score, si se le debe una alternativa de cambio de resultado, ni qué debe ver el analista de la franja intermedia para poder apartarse de un boosting que no es una regla legible. Como se indicó en E7, la frase de la Ley 1266 que ordena indicar por escrito las razones objetivas del rechazo está dirigida a las entidades del sistema financiero y asegurador [8]. En el escenario base no cierra este hueco.
+  </p>
+  <p>
+    La implicación se concentra donde el caso retiró a la persona: el rechazo automático. Es la decisión menos explicada y la que el solicitante enfrenta solo, por la aplicación. Hace falta una política de códigos de razón limitada a las variables ya documentadas, distinta para el solicitante y para el analista, y contrastada contra el modelo para que el código no sea una plantilla ajena al score. Esa política es trabajo de explicación aplicada a este motor, no una subcategoría adicional del CSF.
+  </p>
+
+  <h3>B4. Regla de supervisión de las decisiones automáticas</h3>
+  <p>
+    El caso ya describe un analista en la franja intermedia y un respaldo manual si el servicio no responde. Ese es un hecho operativo. No demuestra que la supervisión sea efectiva. El AI RMF y la ISO/IEC 42001 piden que el papel humano quede definido en el contexto de uso [2] [3]. No fijan el muestreo de las colas de aprobación y rechazo, la autoridad de revocatoria, el tiempo por caso ni un control del sesgo de automatización del analista que recibe un score ya calculado. FinanCali evalúa cientos de solicitudes al día con una planta de unos 50 empleados y sin rol de gobernanza de IA.
+  </p>
+  <p>
+    La implicación es que la franja intermedia puede exhibirse como supervisión humana mientras la masa de decisiones, la de los extremos, no se revisa nunca. El riesgo del diseño semiautónomo está en la zona de la que se retiró al analista, no en la zona en la que se lo dejó. La regla que falta es operativa: muestra de ambas colas, revocatoria registrada y condición de parada cuando la cola del analista supere la capacidad. Adoptar un marco más no la escribe.
+  </p>
+
+  <h3>B5. Retención para auditoría y vigencia del dato negativo</h3>
+  <p>
+    El caso conserva solicitudes, variables y score para consulta y auditoría. El parágrafo 3 del artículo 13 de la Ley 1266 exige la actualización simultánea de la medición asociada al dato negativo cuando este se retira [8]. El CSF, aplicado a esa retención, protege la integridad del registro y favorece su conservación. El AI RMF no codifica la regla colombiana de permanencia. Ninguno de los dos resuelve el choque: el expediente que demuestra cómo se decidió un crédito puede convertirse en la copia interna de un dato que el operador ya debía haber sacado de consulta, si esas variables se reutilizan después.
+  </p>
+  <p>
+    La implicación es de diseño del pipeline, no de política general de backups. Conviene separar el registro histórico de la decisión —qué se decidió, en qué fecha, con qué base y por cuánto tiempo se guarda— de las variables que deben refrescarse o suprimirse cuando la central retire el dato negativo. Reescribir en silencio el score ya emitido destruiría la auditoría; seguir alimentando decisiones nuevas con la variable vencida eludiría la permanencia. Esa partición no está en los referentes analizados.
+  </p>
+
+  <h3>B6. Partición entre entrenamiento e inferencia</h3>
+  <p>
+    El numeral VI de la Circular 002 señala la privacidad diferencial como vía matemática para hacer analítica sin revelar a la persona que aportó el dato [6]. La inferencia de FinanCali no puede funcionar así: el score tiene que ser sobre el solicitante identificado, con sus ingresos, su endeudamiento y su reporte. Aplicar la técnica a la decisión individual inutiliza el producto. No aplicarla en ninguna etapa deja el numeral VI sin respuesta dentro del estudio de impacto. MEASURE 2.10 pide examinar el riesgo de privacidad y no resuelve en qué etapa [2].
+  </p>
+  <p>
+    La implicación es una decisión de ingeniería de privacidad de este flujo. Las técnicas de minimización y, cuando el presupuesto de privacidad lo permita, la privacidad diferencial corresponden al entrenamiento y a la evaluación del lote. El registro identificado se usa en la inferencia, con finalidad limitada al estudio de esa solicitud y con el control de acceso que el CSF sí sabe expresar. El estudio de impacto del numeral IV es el lugar donde esa partición debe quedar escrita. Sin ella, el estudio puede copiar el numeral VI y no describir el sistema que está en producción.
+  </p>
+
+  <h3>B7. Validación de un modelo que FinanCali no entrenó</h3>
+  <p>
+    Esta brecha está condicionada a la rama que el Taller 1 dejó abierta: que el modelo se adquiera a un proveedor. Si eso ocurre, MEASURE 2.9 y MEASURE 2.11 suponen que la organización puede explicar y evaluar. El proveedor puede no entregar el conjunto de entrenamiento. La Ley 1581 mantiene a FinanCali como responsable si ella define la finalidad, y exige formalizar al proveedor como encargado cuando trate datos por su cuenta. La Circular Externa 002 de 2025 queda, como ya se clasificó en el Taller 1, en el supuesto condicionado de transferencia de tecnología con datos personales. GV.SC cubre las expectativas de ciberseguridad del proveedor y no la validación de equidad. Ninguno de esos referentes crea, por sí solo, el derecho a auditar un modelo ajeno.
+  </p>
+  <p>
+    La implicación es que comprar el modelo puede sacar de la vista de FinanCali las brechas B1, B2 y B3 sin sacar de ella el deber. La aproximación especializada es contractual y previa a la entrada en producción: muestra de validación, interfaz de códigos de razón, aviso de reentrenamiento y restricción para que el proveedor no use los solicitantes de FinanCali como entrenamiento de otros clientes sin base jurídica. Si el proveedor o la nube están fuera de Colombia, el análisis de transferencia internacional ya identificado en el Taller 1 es condición previa de ese contrato, no su reemplazo. Si el modelo sigue siendo interno, B7 no se activa.
+  </p>
+
+  <h2>4.5. Por qué hacen falta los dos referentes</h2>
+
+  <div class="layers">
+    <div class="layer platform">
+      <p class="kicker">Capa de plataforma · NIST CSF 2.0 · necesaria</p>
+      <p>Activos, accesos, integridad y confidencialidad, detección de eventos de ciberseguridad, respuesta y recuperación del servicio, expectativas de ciberseguridad hacia terceros.</p>
+    </div>
+    <div class="layer norms">
+      <p class="kicker">Capa de la decisión y del ciclo de vida · normas y marcos de IA del Taller 1 · necesaria</p>
+      <p>Proporcionalidad, calidad, estudio de impacto, habeas data del score, gobernanza del modelo, medición de deriva y sesgo, explicación y supervisión humana como resultados.</p>
+    </div>
+    <div class="layer gap">
+      <p class="kicker">Decisiones que ninguna de las dos capas especifica · B1 a B7</p>
+      <p>Ensayos adversariales del modelo tabular, criterio de equidad, códigos de razón, regla de muestreo de las colas automáticas, partición de la retención, partición entrenamiento/inferencia y, si el modelo se compra, derechos de validación.</p>
+    </div>
+  </div>
+
+  <p>
+    El CSF 2.0 es necesario porque el scoring también es un sistema digital con los vacíos de madurez ya descritos: inventario parcial, accesos privilegiados, ausencia de monitoreo de la API, ausencia de respuesta y de retorno a una versión anterior, y dependencia de centrales, nube y eventuales proveedores. El AI RMF no levanta el inventario de esos activos ni conduce la atención del incidente de la API. El texto del CSF 2.0 hace este reparto: el riesgo de ciberseguridad permanece en el CSF y los demás riesgos de la IA se tratan junto a él, no en su lugar [1]. Quedarse solo con las normas de IA dejaría desprotegido el canal por el que el score se produce y se entrega.
+  </p>
+
+  <p>
+    Las normas y los marcos de IA son necesarios porque una plataforma bien protegida puede emitir un score ilegítimo. El daño propio de este caso no es únicamente la filtración. Es una decisión, a menudo automática, sobre el acceso al crédito de una persona natural, construida con datos personales, financieros y de centrales. Ese daño es el que atienden la Circular 002 de 2024, la Ley 1266 modificada por la Ley 2157 y las funciones de medición del AI RMF. DE.CM no va a alertar un modelo que, con el servicio disponible y la API íntegra, concentre rechazos en un perfil socioeconómico: eso no es un evento adverso de ciberseguridad. Por eso la ausencia de monitoreo del comportamiento del modelo, documentada en el Taller 1, sobrevive a la adopción del CSF. En el nivel del resultado, se atiende cuando se añade un marco de riesgo de IA.
+  </p>
+
+  <p>
+    La conjunción tampoco equivale a la protección completa del sistema. B1 a B7 quedan en el cruce de tres exigencias: un resultado de ciberseguridad (el dato sigue íntegro y el servicio se recupera), un deber legal (no decidir solo con el reporte negativo; evaluar el impacto de privacidad) y un resultado voluntario (medir la equidad y explicar el modelo). Ninguna de las tres escribe el umbral de disparidad, el código de razón, la muestra de las decisiones automáticas, la partición de la retención ni el ensayo adversarial. Dejar esas decisiones implícitas permitiría presentar la adopción de los dos referentes como cobertura total del scoring. No lo es.
+  </p>
+
+  <p>
+    La capacidad de FinanCali acota la implicación práctica. El Punto 2 ya descartó ISO/IEC 27001 y COBIT para esta etapa por el peso de formalización, y conservó CIS Controls como traducción técnica posterior. El mismo criterio sirve aquí. No hace falta un tercer marco organizacional para cerrar B1 a B7. Hace falta un orden de atención compatible con un equipo pequeño y con deberes que ya son exigibles. Primero, el estudio de impacto de privacidad, porque la Circular 002 lo pide antes del diseño y el sistema ya opera, e incluir dentro de ese estudio la partición de B6. Segundo, la partición de retención de B5, porque choca con un deber vigente de habeas data y con una práctica de conservación que el caso ya declaró. Tercero, la regla de supervisión de B4, porque el daño se concentra en las decisiones de las que se retiró al analista. Después, los códigos de razón de B3, el protocolo de equidad de B2 y los ensayos de B1. B7 se antepone a todas las anteriores en la rama, y solo en la rama, en que el modelo se compre: sin visibilidad del modelo, las mediciones que el AI RMF pide no pueden ejecutarse. Las dos primeras son deberes ya aplicables. De la tercera en adelante está la capa especializada que los referentes analizados dejan abierta.
+  </p>
+
+  <h2>4.6. Cierre</h2>
+
+  <p>
+    NIST CSF 2.0 organiza la ciberseguridad del flujo de scoring y responde a las brechas de plataforma identificadas en FinanCali. No cubre la gobernanza del modelo, el monitoreo de su comportamiento, la equidad de la decisión automática, la explicación del score, el juicio de proporcionalidad y el impacto de privacidad, la efectividad de la supervisión humana ni las reglas de habeas data que condicionan la lógica y la vigencia de la medición. Esos elementos quedan atendidos, con el alcance precisado en la Tabla 2, por la Circular Externa 002 de 2024, la Ley 1581 de 2012, la Ley 1266 de 2008 modificada por la Ley 2157 de 2021, el NIST AI RMF 1.0, la ISO/IEC 42001 y la ISO/IEC 23894. El CONPES 4144 y el Reglamento europeo de IA orientan ese juicio y no obligan a la operación actual.
+  </p>
+
+  <p>
+    Aun reunidos, esos referentes dejan sin especificar siete decisiones de este sistema: los ensayos de ataques propios del modelo, el criterio de equidad, la explicación utilizable, la supervisión de las colas automáticas, la convivencia entre auditoría y retiro del dato negativo, la partición de privacidad entre entrenamiento e inferencia y, si el modelo se adquiere, los derechos para validarlo. Proteger el scoring de FinanCali requiere el marco de ciberseguridad y el marco normativo de IA. Requiere, además, tratar esas siete decisiones como diseño especializado y no como cobertura ya obtenida.
+  </p>
+
+  <h2>Referencias</h2>
+  <ol class="refs">
+    <li>National Institute of Standards and Technology. <em>The NIST Cybersecurity Framework (CSF) 2.0</em>. NIST CSWP 29. 26 de febrero de 2024. https://doi.org/10.6028/NIST.CSWP.29</li>
+    <li>National Institute of Standards and Technology. <em>Artificial Intelligence Risk Management Framework (AI RMF 1.0)</em>. NIST.AI.100-1. Enero de 2023. https://doi.org/10.6028/NIST.AI.100-1</li>
+    <li>International Organization for Standardization. ISO/IEC 42001:2023. <em>Information technology — Artificial intelligence — Management system</em>.</li>
+    <li>International Organization for Standardization. ISO/IEC 23894:2023. <em>Information technology — Artificial intelligence — Guidance on risk management</em>.</li>
+    <li>Departamento Nacional de Planeación. Documento CONPES 4144. <em>Política Nacional de Inteligencia Artificial</em>. 14 de febrero de 2025. https://normograma.mintic.gov.co/mintic/compilacion/docs/CONPES_DNP_4144_2025.htm</li>
+    <li>Superintendencia de Industria y Comercio. Circular Externa 002 del 21 de agosto de 2024. <em>Lineamientos sobre el tratamiento de datos personales en sistemas de inteligencia artificial</em>. Diario Oficial 52.856. https://normograma.mintic.gov.co/mintic/compilacion/docs/circular_superindustria_0002_2024.htm</li>
+    <li>Congreso de la República de Colombia. Ley Estatutaria 1581 de 2012. <em>Por la cual se dictan disposiciones generales para la protección de datos personales</em>.</li>
+    <li>Congreso de la República de Colombia. Ley 2157 de 2021, que modifica la Ley Estatutaria 1266 de 2008. En particular, artículo 13, parágrafo 3, y artículo 10, parágrafos 1 y 2, de la Ley 1266 en el texto modificado. http://www.secretariasenado.gov.co/senado/basedoc/ley_2157_2021.html</li>
+    <li>Unión Europea. Reglamento (UE) 2024/1689 del Parlamento Europeo y del Consejo. Artículo 6, apartados 2 y 3, y Anexo III, punto 5, letra b.</li>
+    <li>National Institute of Standards and Technology. <em>Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations</em>. NIST AI 100-2e2025. https://doi.org/10.6028/NIST.AI.100-2e2025</li>
+    <li>MITRE. <em>ATLAS: Adversarial Threat Landscape for Artificial-Intelligence Systems</em>. https://atlas.mitre.org/</li>
+  </ol>
+</body>
+</html>
