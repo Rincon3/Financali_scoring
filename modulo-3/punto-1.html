@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Módulo Tres · Punto 1 · Definición del caso de uso de IA</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm;
+      @top-left {
+        content: "Universidad del Valle · Módulo Tres · Punto 1";
+        font-family: "Liberation Sans", sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @top-right {
+        content: "FinanCali S.A.S. · Scoring crediticio";
+        font-family: "Liberation Sans", sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @bottom-center {
+        content: counter(page);
+        font-family: "Liberation Sans", sans-serif;
+        font-size: 9pt;
+        color: #596573;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+
+    body {
+      margin: 0;
+      color: #1c1917;
+      font-family: "Liberation Serif", "Times New Roman", serif;
+      font-size: 10.6pt;
+      line-height: 1.42;
+    }
+
+    header {
+      border-top: 3px solid #1e3a5f;
+      padding-top: 10px;
+      margin-bottom: 14px;
+    }
+
+    .institution {
+      margin: 0 0 10px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 8.5pt;
+      line-height: 1.35;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 16.5pt;
+      line-height: 1.2;
+    }
+
+    .subtitle, .meta {
+      margin: 0 0 8px;
+      color: #3f4a57;
+      font-family: "Liberation Sans", sans-serif;
+    }
+
+    .subtitle { font-size: 11pt; }
+    .meta { font-size: 9pt; line-height: 1.4; }
+
+    h2 {
+      margin: 17px 0 6px;
+      padding-top: 4px;
+      border-top: 1px solid #d6d3cd;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 13pt;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      margin: 12px 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 11.2pt;
+      page-break-after: avoid;
+    }
+
+    p { margin: 0 0 8px; orphans: 3; widows: 3; }
+
+    .scope {
+      margin: 12px 0;
+      padding: 8px 11px;
+      border-left: 3px solid #1e3a5f;
+      background: #f4f1ea;
+      font-size: 9.8pt;
+    }
+
+    table {
+      width: 100%;
+      margin: 7px 0 12px;
+      border-collapse: collapse;
+      font-size: 8.8pt;
+      line-height: 1.3;
+    }
+
+    caption {
+      margin-bottom: 4px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 8.7pt;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    th {
+      padding: 5px 6px;
+      background: #1e3a5f;
+      color: #fff;
+      font-family: "Liberation Sans", sans-serif;
+      font-weight: 600;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    td {
+      padding: 5px 6px;
+      border-bottom: 1px solid #e2ded6;
+      vertical-align: top;
+    }
+
+    tr { break-inside: avoid; page-break-inside: avoid; }
+    tbody tr:nth-child(even) td { background: #faf8f5; }
+
+    .architecture {
+      margin: 8px 0 12px;
+      padding: 10px 12px;
+      border: 1px solid #d7dde4;
+      background: #f2f6f9;
+      color: #263442;
+      font-family: "Cascadia Mono", "Liberation Mono", monospace;
+      font-size: 8.6pt;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      page-break-inside: avoid;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-right: 3px;
+      padding: 1px 5px;
+      border-radius: 7px;
+      background: #e8eef4;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", sans-serif;
+      font-size: 7.8pt;
+      font-weight: 600;
+    }
+
+    ul, ol { margin: 4px 0 9px 1.3em; padding: 0; }
+    li { margin-bottom: 3px; }
+
+    .refs {
+      font-size: 8.8pt;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="institution">
+      Universidad del Valle<br />
+      Facultad de Ingeniería — Escuela de Sistemas<br />
+      Maestría en Desarrollo de Aplicaciones Inteligentes<br />
+      Seguridad en el Desarrollo de Aplicaciones
+    </p>
+    <h1>Punto 1. Definición del caso de uso de IA</h1>
+    <p class="subtitle">Módulo Tres: tareas de equipo púrpura para sistemas basados en IA</p>
+    <p class="meta">
+      Miguel Ángel Rincón — 2502619-7729<br />
+      Maria Paula Jimenez I — 2507713-7729<br />
+      David Steven Duran Vallejo — 2508228-7729
+    </p>
+  </header>
+
+  <div class="scope">
+    <strong>Decisión de continuidad.</strong> Se conserva el caso de uso trabajado en los dos módulos anteriores: evaluación automatizada de riesgo crediticio mediante el sistema de scoring de FinanCali S.A.S. No se cambia la organización ni la finalidad del sistema. Para hacer posible la evaluación práctica del Módulo Tres sin datos, infraestructura o modelos reales, se incorpora un prototipo sustituto local, pequeño y reproducible.
+  </div>
+
+  <h2>1.1. Justificación de la continuidad y de las actualizaciones</h2>
+
+  <p>
+    Mantener el caso de uso permite que el modelado de amenazas parta de los artefactos ya construidos. En el Módulo Uno se caracterizó a FinanCali como una fintech colombiana ficticia, de aproximadamente 50 empleados, cuya operación digital depende del flujo de originación de crédito. También se documentaron sus activos —datos personales y financieros, datos históricos, modelo, API, credenciales e infraestructura cloud—, sus dependencias externas y su madurez inicial. En el Módulo Dos se seleccionó NIST CSF 2.0 como marco principal y se identificaron resultados prioritarios en las funciones Gobernar, Identificar, Proteger, Detectar, Responder y Recuperar. En particular, quedaron abiertas las amenazas especializadas contra el modelo, como el envenenamiento de datos, la evasión y la extracción. Esas brechas son el punto de entrada natural para el ejercicio adversarial del Módulo Tres.
+  </p>
+
+  <p>
+    Las actualizaciones introducidas no modifican el propósito del sistema. Precisan elementos que los talleres anteriores habían dejado como alternativas y que ahora deben ser verificables. El modelo se concreta como un clasificador tabular de <em>gradient boosting</em>; su probabilidad estimada se transforma en un score académico entre 0 y 100; el modelo se considera desarrollado internamente; y el entrenamiento continúa siendo por lotes, sin aprendizaje automático en producción. El prototipo utilizará el conjunto público <em>South German Credit</em> de UCI, bajo licencia CC BY 4.0, o una versión sintética derivada de su estructura [4]. Su empleo no supone que los datos representen a la población colombiana ni que el modelo sea apto para otorgar crédito real.
+  </p>
+
+  <p>
+    El prototipo será un sistema sustituto: preservará el tipo de modelo, la naturaleza tabular de las entradas, la salida probabilística, los umbrales de decisión y una interfaz de inferencia equivalente a la API descrita. No reproducirá el core financiero, la consulta real a centrales de riesgo, el desembolso, la cobranza ni la infraestructura cloud. Las conclusiones podrán extrapolarse a los mecanismos de ataque, integridad, versionamiento, detección y respuesta observados; no podrán extrapolarse al desempeño crediticio, la equidad poblacional ni el cumplimiento de un sistema productivo colombiano.
+  </p>
+
+  <table>
+    <caption>Tabla 1. Trazabilidad de las decisiones del caso</caption>
+    <thead>
+      <tr>
+        <th style="width: 25%">Elemento</th>
+        <th style="width: 36%">Definición previa</th>
+        <th style="width: 39%">Decisión para el Módulo Tres</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Organización y proceso</td>
+        <td>FinanCali; originación digital de crédito de consumo.</td>
+        <td>Se mantienen sin cambios.</td>
+      </tr>
+      <tr>
+        <td>Tipo de modelo</td>
+        <td>Clasificación/regresión sobre datos tabulares.</td>
+        <td>Se concreta como clasificador <em>gradient boosting</em> que produce una probabilidad transformada a 0–100.</td>
+      </tr>
+      <tr>
+        <td>Origen del modelo</td>
+        <td>Podía ser interno o adquirido.</td>
+        <td>Se asume desarrollo interno para poder observar entrenamiento, artefactos y controles. La adquisición permanece como escenario fuera de la prueba.</td>
+      </tr>
+      <tr>
+        <td>Datos</td>
+        <td>Datos declarados, historial interno y centrales de riesgo.</td>
+        <td>Se representan con datos públicos o sintéticos, sin titulares reales de FinanCali.</td>
+      </tr>
+      <tr>
+        <td>Despliegue</td>
+        <td>Microservicio cloud mediante API REST interna.</td>
+        <td>Se simula localmente con una función o endpoint REST y registros de solicitudes.</td>
+      </tr>
+      <tr>
+        <td>Volumen</td>
+        <td>Cientos de solicitudes diarias.</td>
+        <td>Se simula mediante lotes de solicitudes. El volumen académico no pretende reproducir capacidad productiva.</td>
+      </tr>
+      <tr>
+        <td>Marco de seguridad</td>
+        <td>NIST CSF 2.0; CIS Controls como apoyo técnico.</td>
+        <td>Se mantiene NIST CSF 2.0 y se utilizarán específicamente Identificar, Proteger y Detectar, como exige el Módulo Tres.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>1.2. Plantilla diligenciada del caso de uso</h2>
+
+  <h3>1. Identificación general</h3>
+  <table>
+    <thead>
+      <tr><th style="width: 27%">Campo</th><th>Documentación del caso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Nombre</td>
+        <td>Evaluación automatizada de riesgo crediticio — Sistema de scoring de FinanCali S.A.S.</td>
+      </tr>
+      <tr>
+        <td>Objetivo de negocio</td>
+        <td>Reducir el tiempo de respuesta de las solicitudes y mejorar la consistencia de la originación, sin depender exclusivamente del juicio manual.</td>
+      </tr>
+      <tr>
+        <td>Objetivo de la IA</td>
+        <td>Estimar, a partir de variables tabulares, la probabilidad asociada al comportamiento crediticio y convertirla en un score de 0 a 100 que alimente una recomendación de aprobar, revisar o rechazar.</td>
+      </tr>
+      <tr>
+        <td>Proceso asociado</td>
+        <td>Originación de crédito digital, desde la captura y validación de la solicitud hasta la recomendación entregada al motor de decisión o al analista.</td>
+      </tr>
+      <tr>
+        <td>Objeto del análisis en este módulo</td>
+        <td>El pipeline de entrenamiento, el artefacto del modelo, la interfaz de inferencia y los registros necesarios para identificar, proteger y detectar acciones adversariales.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2. Dimensión técnica</h3>
+  <table>
+    <thead>
+      <tr><th style="width: 27%">Campo</th><th>Documentación del caso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Modelo o técnica</td>
+        <td>Clasificación binaria sobre datos tabulares mediante <em>GradientBoostingClassifier</em>. La probabilidad de la clase favorable se escala a un score de 0 a 100. Esta implementación concreta la formulación general de los talleres anteriores.</td>
+      </tr>
+      <tr>
+        <td>Naturaleza del aprendizaje</td>
+        <td>Aprendizaje supervisado y entrenamiento por lotes. No existe reentrenamiento automático en producción. Un nuevo modelo debe pasar por preparación, entrenamiento, evaluación, versionamiento y aprobación.</td>
+      </tr>
+      <tr>
+        <td>Autonomía</td>
+        <td>Semiautónoma. Para el prototipo se usarán umbrales académicos explícitos: score de 0 a 39, rechazo; 40 a 69, revisión manual; y 70 a 100, aprobación. No representan una política financiera real y podrán ajustarse antes de la prueba, dejando registro del cambio.</td>
+      </tr>
+      <tr>
+        <td>Despliegue</td>
+        <td>El caso conceptual conserva un microservicio cloud expuesto internamente por API REST. El sustituto se ejecutará localmente y podrá ofrecer un endpoint <code>POST /score</code> o una función equivalente. La interfaz web, si se construye, será únicamente una capa de demostración.</td>
+      </tr>
+      <tr>
+        <td>Integraciones</td>
+        <td>En el caso realista: aplicación web/móvil, core de crédito, central de riesgo, verificación de identidad y gestión documental. En el sustituto: archivos locales o respuestas simuladas; no se invocarán servicios financieros reales.</td>
+      </tr>
+      <tr>
+        <td>Componentes observables</td>
+        <td>Dataset versionado, script de preparación, modelo serializado, configuración, métricas, endpoint de inferencia y registros. Estos artefactos permitirán obtener evidencia de la prueba.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="architecture">FLUJO DE ENTRENAMIENTO
+Datos públicos/sintéticos → preparación → entrenamiento → evaluación
+→ validación de seguridad → versión aprobada → artefacto desplegable
+
+FLUJO DE INFERENCIA
+Formulario simulado → validación → endpoint /score → modelo
+→ score 0–100 → aprobar / revisar / rechazar → registro
+
+LÍMITE DEL EJERCICIO
+No hay central de riesgo, datos personales reales, core bancario,
+desembolso, nube productiva ni decisión financiera efectiva.</div>
+
+  <h3>3. Dimensión de datos</h3>
+  <table>
+    <thead>
+      <tr><th style="width: 27%">Campo</th><th>Documentación del caso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Fuentes conceptuales</td>
+        <td>Información declarada por el solicitante, historial interno de FinanCali y reportes de centrales de riesgo, tal como se definió en el Módulo Uno.</td>
+      </tr>
+      <tr>
+        <td>Fuente del prototipo</td>
+        <td><em>South German Credit</em> de UCI —20 variables predictoras y una etiqueta binaria— o una versión sintética con estructura equivalente [4]. Se conservará la atribución exigida por CC BY 4.0. No se usará la versión Statlog con errores de codificación reportados.</td>
+      </tr>
+      <tr>
+        <td>Naturaleza y sensibilidad</td>
+        <td>El caso conceptual trata datos personales, financieros y crediticios identificables. El prototipo empleará datos públicos históricos o sintéticos sin relación con clientes de FinanCali. Que el archivo sea público no convierte sus variables en apropiadas para una decisión real.</td>
+      </tr>
+      <tr>
+        <td>Variables</td>
+        <td>Se priorizarán variables equivalentes a monto, duración, situación de cuenta, historial, ahorro, empleo y obligaciones. Variables como sexo, edad o condición de extranjero no se usarán como predictores del prototipo base; podrán conservarse únicamente, si resulta metodológicamente necesario, para análisis separado y documentado.</td>
+      </tr>
+      <tr>
+        <td>Actualización</td>
+        <td>Las entradas de una solicitud se capturan al momento de la inferencia. El dataset de entrenamiento es una versión congelada; cada modificación debe generar una nueva versión identificable.</td>
+      </tr>
+      <tr>
+        <td>Retención y trazabilidad</td>
+        <td>Se conservarán versión del dataset, hash, semilla, configuración, versión del modelo, métricas y resultados de prueba. Los registros no contendrán identidades reales. La conservación busca reproducibilidad académica, no simula el término legal de un expediente crediticio.</td>
+      </tr>
+      <tr>
+        <td>Separación de variables</td>
+        <td>Antes de la evaluación adversarial se marcarán las variables que un solicitante podría declarar, las que provendrían de una fuente externa confiable y las derivadas por FinanCali. Esta clasificación evita considerar factibles perturbaciones que un adversario no podría producir.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>4. Dimensión operativa</h3>
+  <table>
+    <thead>
+      <tr><th style="width: 27%">Campo</th><th>Documentación del caso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Volumen</td>
+        <td>El caso conserva el orden de cientos de solicitudes diarias. El prototipo ejecutará lotes pequeños y repetibles; el volumen simulado se documentará en cada prueba.</td>
+      </tr>
+      <tr>
+        <td>Supervisión humana</td>
+        <td>Un analista revisa la franja intermedia. En el prototipo no se tomarán decisiones sobre personas: la “revisión manual” será un estado de salida y podrá acompañarse de una razón simulada.</td>
+      </tr>
+      <tr>
+        <td>Falla o indisponibilidad</td>
+        <td>El caso mantiene el flujo manual de respaldo. Durante la simulación, una falla del modelo o de una validación de seguridad debe impedir el despliegue o enviar la solicitud al estado de revisión, sin aprobarla automáticamente.</td>
+      </tr>
+      <tr>
+        <td>Operación segura de la prueba</td>
+        <td>Las acciones ofensivas se ejecutarán solo en el entorno local, sobre artefactos propios y datos públicos o sintéticos. Se fijará una semilla y se conservarán las entradas, salidas y configuraciones.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>5. Usuarios y poblaciones afectadas</h3>
+  <table>
+    <thead>
+      <tr><th style="width: 27%">Campo</th><th>Documentación del caso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Usuarios directos</td>
+        <td>En el caso: analistas de crédito y motor de decisión. En el prototipo: integrantes del grupo que ejecuten y observen la prueba.</td>
+      </tr>
+      <tr>
+        <td>Población afectada</td>
+        <td>Conceptualmente, personas naturales solicitantes de crédito de consumo en Colombia. En el ejercicio no hay titulares ni decisiones reales; cada “solicitante” es un registro público desidentificado o sintético.</td>
+      </tr>
+      <tr>
+        <td>Canal de interacción</td>
+        <td>Conceptualmente, aplicación web y móvil de FinanCali. En el sustituto, un formulario web local o casos de prueba enviados directamente a la función/API.</td>
+      </tr>
+      <tr>
+        <td>Impacto relevante</td>
+        <td>En un sistema real, una alteración podría producir aprobación o rechazo incorrectos, pérdida económica, discriminación o afectación del habeas data. En el prototipo, el impacto se mide como cambio de predicción, desempeño o comportamiento del pipeline.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6. Contexto de despliegue</h3>
+  <table>
+    <thead>
+      <tr><th style="width: 27%">Campo</th><th>Documentación del caso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alcance territorial</td>
+        <td>FinanCali opera exclusivamente en Colombia. El dataset extranjero se utiliza solo como material de prueba y no modifica ese alcance.</td>
+      </tr>
+      <tr>
+        <td>Sector</td>
+        <td>Financiero-tecnológico, crédito digital con recursos propios en el escenario base definido en el Módulo Uno.</td>
+      </tr>
+      <tr>
+        <td>Criticidad</td>
+        <td>Alta para el caso conceptual porque el scoring forma parte del flujo central de originación. Académica y controlada para el prototipo, que no tiene consecuencias externas.</td>
+      </tr>
+      <tr>
+        <td>Marco normativo de referencia</td>
+        <td>Leyes 1581 de 2012 y 1266 de 2008, modificación de la Ley 2157 de 2021 y Circular Externa 002 de 2024 de la SIC, según el panorama del Módulo Uno. Su consideración orienta el diseño; no convierte el prototipo en un sistema conforme ni certificado.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>7. Madurez de adopción de IA</h3>
+  <table>
+    <thead>
+      <tr><th style="width: 27%">Campo</th><th>Documentación del caso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Madurez actual</td>
+        <td>Inicial: modelo conceptualmente en producción, monitoreo operativo básico, inventario parcial y ausencia de un programa formal de gobernanza de IA.</td>
+      </tr>
+      <tr>
+        <td>Gobernanza</td>
+        <td>No existe rol o comité formal; las decisiones recaen en el equipo técnico. Para la simulación se asignarán responsables de datos, modelo, actividad ofensiva y actividad defensiva.</td>
+      </tr>
+      <tr>
+        <td>Monitoreo</td>
+        <td>El diagnóstico previo solo contemplaba disponibilidad. El prototipo agregará una línea base de integridad, distribución y desempeño para que los puntos siguientes puedan evaluar detección. Esto constituye instrumentación del ejercicio, no evidencia de que FinanCali ya posea esa capacidad.</td>
+      </tr>
+      <tr>
+        <td>Marco adoptado</td>
+        <td>NIST CSF 2.0. El Módulo Tres concentrará las acciones en <span class="tag">ID</span> Identificar, <span class="tag">PR</span> Proteger y <span class="tag">DE</span> Detectar.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>1.3. Alcance preparado para los puntos siguientes</h2>
+
+  <p>
+    La definición anterior deja disponibles cuatro superficies para el análisis ATLAS: datos de entrenamiento, pipeline de preparación, artefacto del modelo e interfaz de inferencia. En el Punto 2 no se asumirá que toda técnica es factible. Para cada candidata se comprobará si el componente existe, qué acceso necesita el adversario y qué exposición presenta. La presencia de un riesgo de equidad o de deriva tampoco se presentará automáticamente como ataque: solo será una amenaza adversarial cuando exista una acción intencional y una técnica ATLAS pertinente.
+  </p>
+
+  <p>
+    La prueba práctica del Punto 3 deberá usar una versión congelada de este caso. Antes de ejecutarla se fijarán el dataset, el hash, la semilla, el modelo, los umbrales, el objetivo ofensivo, el comportamiento esperado y el criterio de aprobación. La interfaz web podrá apoyar la demostración, pero la evidencia principal serán los registros, configuraciones, métricas y resultados reproducibles. De esta manera, el prototipo no intenta sustituir una plataforma financiera; materializa únicamente los componentes indispensables para evaluar una amenaza y su defensa.
+  </p>
+
+  <h2>1.4. Conclusión del Punto 1</h2>
+
+  <p>
+    El caso de uso no cambia respecto de los módulos anteriores: continúa siendo el scoring crediticio semiautónomo de FinanCali. La actualización consiste en hacerlo comprobable mediante un sustituto local basado en clasificación tabular y datos públicos o sintéticos, sin titulares reales ni decisiones de crédito efectivas. Se preservan el propósito, la lógica, la superficie técnica y las brechas previamente documentadas, al tiempo que se establecen artefactos observables para modelar amenazas, ejecutar una prueba de equipo púrpura y relacionar sus resultados con NIST CSF 2.0. La equivalencia es suficiente para estudiar mecanismos de seguridad; no autoriza conclusiones sobre desempeño, equidad o cumplimiento de un sistema productivo.
+  </p>
+
+  <h2>Referencias</h2>
+  <ol class="refs">
+    <li>FinanCali S.A.S. <em>Taller 1 — Propuesta del proyecto</em>. Artefacto académico del Módulo Uno.</li>
+    <li>FinanCali S.A.S. <em>Taller 2 — Marcos de Trabajo de Ciberseguridad</em>. Artefacto académico del Módulo Dos.</li>
+    <li>Universidad del Valle. <em>Módulo Tres: Tareas de equipo púrpura para sistemas basados en IA</em>. Seguridad en el Desarrollo de Aplicaciones, 2026-II.</li>
+    <li>Grömping, U. <em>South German Credit</em>. UCI Machine Learning Repository. DOI: 10.24432/C5X89F. Licencia CC BY 4.0. https://archive.ics.uci.edu/dataset/522/south+german+credit</li>
+    <li>National Institute of Standards and Technology. <em>The NIST Cybersecurity Framework (CSF) 2.0</em>. NIST CSWP 29, 2024.</li>
+  </ol>
+</body>
+</html>

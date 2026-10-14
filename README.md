@@ -1,4 +1,17 @@
-# Punto 4. Aportes normativos específicos y brechas de cobertura
+# Entregables académicos de FinanCali
+
+## Módulo Tres — Punto 1
+
+Definición actualizada del caso de uso de scoring crediticio que se utilizará en
+el ejercicio de equipo púrpura. Mantiene el caso trabajado en los módulos
+anteriores y documenta el prototipo sustituto necesario para evaluar amenazas sin
+datos, modelos ni infraestructura reales.
+
+- `modulo-3/Punto-1-Definicion-del-caso-de-uso.pdf` — documento listo para revisión.
+- `modulo-3/punto-1.html` — fuente editable.
+- `modulo-3/render-punto-1.py` — generación del PDF.
+
+## Módulo Dos — Punto 4
 
 Documento del Punto 4 del Taller 2 (Marcos de trabajo de ciberseguridad), para el caso de scoring de riesgo crediticio de FinanCali S.A.S.
 
@@ -15,6 +28,7 @@ Responde solo a ese punto. Usa como contexto el caso de uso, la madurez y el pan
 ```bash
 pip install -r requirements.txt
 python3 punto-4/render.py
+python3 modulo-3/render-punto-1.py
 ```
 
 ## Antes de integrar este punto al taller completo
