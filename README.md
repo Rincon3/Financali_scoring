@@ -1,38 +1,124 @@
-# Entregables académicos de FinanCali
+# FinanCali Scoring Lab
 
-## Módulo Tres — Punto 1
+Representación mínima y reproducible del scoring académico de FinanCali. Permite
+observar entradas, score, decisión simulada, métricas de línea base e integridad
+de los artefactos antes de ejecutar los ejercicios de equipo púrpura del Módulo
+Tres.
 
-Definición actualizada del caso de uso de scoring crediticio que se utilizará en
-el ejercicio de equipo púrpura. Mantiene el caso trabajado en los módulos
-anteriores y documenta el prototipo sustituto necesario para evaluar amenazas sin
-datos, modelos ni infraestructura reales.
+> **No es un sistema de otorgamiento de crédito.** Los datos son sintéticos, los
+> umbrales son académicos y ninguna salida debe usarse para aprobar, rechazar u
+> ofrecer productos financieros.
 
-- `modulo-3/Punto-1-Definicion-del-caso-de-uso.pdf` — documento listo para revisión.
-- `modulo-3/punto-1.html` — fuente editable.
-- `modulo-3/render-punto-1.py` — generación del PDF.
+## Funcionalidad actual
 
-## Módulo Dos — Punto 4
+- Dataset sintético determinista de 4.000 registros.
+- `GradientBoostingClassifier` con preprocesamiento numérico y categórico.
+- Score entre 0 y 100 y tres zonas: rechazo, revisión y aprobación.
+- API REST validada con Pydantic.
+- Interfaz web responsive para experimentar con las entradas y los umbrales.
+- Línea base de ROC AUC, exactitud, precisión, recall, F1 y Brier score.
+- Hash SHA-256 del dataset y del modelo.
+- Contadores de solicitudes válidas, inválidas y decisiones.
+- Sensibilidad local experimental y reglas de alerta transparentes.
+- Pruebas automatizadas del modelo y del contrato API.
 
-Documento del Punto 4 del Taller 2 (Marcos de trabajo de ciberseguridad), para el caso de scoring de riesgo crediticio de FinanCali S.A.S.
+## Estructura
 
-Responde solo a ese punto. Usa como contexto el caso de uso, la madurez y el panorama normativo del Taller 1, y la selección de NIST CSF 2.0 hecha en el Punto 2. El criterio de respuesta es el del Módulo Dos: qué elementos del sistema de IA escapan al marco de ciberseguridad seleccionado, cuáles atienden los marcos normativos de IA ya identificados y cuáles permanecen sin cobertura.
-
-## Archivos
-
-- `punto-4/Punto-4-Aportes-normativos-y-brechas.pdf` — documento para lectura y entrega de este punto.
-- `punto-4/punto-4.html` — fuente.
-- `punto-4/render.py` — regenera el PDF.
-
-## Regenerar el PDF
-
-```bash
-pip install -r requirements.txt
-python3 punto-4/render.py
-python3 modulo-3/render-punto-1.py
+```text
+app/
+├── main.py              # FastAPI, endpoints y manejo de validación
+├── model.py             # Datos sintéticos, entrenamiento, métricas y scoring
+├── schemas.py           # Contrato de entradas, umbrales y respuestas
+└── static/
+    ├── index.html       # Interfaz
+    ├── styles.css
+    └── app.js
+tests/
+├── test_api.py
+└── test_model.py
+modulo-3/                # Entregable académico del Punto 1
+punto-4/                 # Entregable del Punto 4 del Módulo Dos
 ```
 
-## Antes de integrar este punto al taller completo
+## Ejecutar localmente
 
-El Módulo Dos pide que el PDF consolidado de todos los puntos incluya el enlace al video de sustentación y el manifiesto de uso responsable de IA. Esos dos componentes corresponden a la entrega completa del taller, no a este punto aislado. El manifiesto debe describir el proceso real del grupo. Este repositorio no lo redacta en nombre de los integrantes.
+Requiere Python 3.12 o superior.
 
-Conviene revisar, antes de citar el texto como posición del grupo, la lectura del escenario base sobre la Ley 2157 de 2021: la prohibición de decidir solo con el reporte negativo se trata como aplicable a FinanCali, y el deber de indicar por escrito las razones del rechazo se trata como predicado de las entidades del sistema financiero y asegurador.
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --port 43129
+```
+
+Abrir <http://127.0.0.1:43129>. La documentación interactiva de la API queda en
+<http://127.0.0.1:43129/docs>.
+
+## Probar
+
+```bash
+python -m pytest -q
+```
+
+## Contrato mínimo de datos
+
+La simulación utiliza ingreso, relación deuda/ingreso, antigüedad laboral, monto
+solicitado, historia crediticia, moras recientes, obligaciones actuales, ahorros,
+indicador externo, tipo de empleo y vivienda. No usa nombre, documento,
+ubicación, sexo, edad, nacionalidad ni datos personales reales.
+
+Para reemplazar el dataset sintético por información permitida se necesita:
+
+1. Una definición verificable de la etiqueta objetivo y su ventana temporal.
+2. Diccionario, procedencia, calidad y base jurídica de cada variable.
+3. Separación entre variables declaradas, verificadas externamente y derivadas.
+4. Reglas de actualización, corrección, retención y eliminación.
+5. Muestra de validación separada temporalmente y representativa del contexto.
+6. Protocolo para medir desempeño y disparidad antes del despliegue.
+
+## Qué faltaría para un uso real
+
+Este prototipo cubre observabilidad académica, no producción. Un sistema real
+dependería como mínimo de:
+
+- política crediticia, apetito de riesgo y costos de falsos positivos y negativos;
+- datos colombianos autorizados, actualizados y representativos;
+- calibración del score y validación independiente;
+- métricas segmentadas y criterios explícitos de equidad;
+- explicación utilizable por analistas y solicitantes;
+- revisión humana, apelación y reglas para detener el modelo;
+- autenticación, autorización, cifrado, secretos y auditoría inmutable;
+- integración contractual con centrales de riesgo y proveedores;
+- monitoreo de deriva, desempeño, anomalías y abuso de la API;
+- inventario, aprobación, rollback y retiro de versiones;
+- estudio de impacto de privacidad y validación jurídica sectorial.
+
+La exactitud o el ROC AUC por sí solos no prueban que un modelo sea justo,
+calibrado, seguro ni jurídicamente admisible.
+
+## Próximos ejercicios de seguridad
+
+La arquitectura deja observables cuatro componentes: dataset, pipeline,
+artefacto del modelo y API de inferencia. Esto permite construir los puntos
+siguientes del Módulo Tres:
+
+1. analizar dos o tres técnicas de MITRE ATLAS;
+2. priorizar una amenaza según acceso y exposición;
+3. simularla en este entorno local;
+4. aplicar controles ofensivos y defensivos;
+5. comparar evidencia antes y después;
+6. mapear acciones a Identificar, Proteger y Detectar de NIST CSF 2.0.
+
+## Documentos académicos
+
+- `modulo-3/Punto-1-Definicion-del-caso-de-uso.pdf`
+- `modulo-3/punto-1.html`
+- `punto-4/Punto-4-Aportes-normativos-y-brechas.pdf`
+- `punto-4/punto-4.html`
+
+Para regenerar los PDF:
+
+```bash
+python modulo-3/render-punto-1.py
+python punto-4/render.py
+```

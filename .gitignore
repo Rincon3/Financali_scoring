@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.DS_Store
+
+# Model and experiment outputs are generated locally.
+artifacts/*
+!artifacts/.gitkeep
+reports/*
+!reports/.gitkeep
