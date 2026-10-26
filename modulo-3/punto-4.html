@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Módulo Tres · Punto 4 · Modelado de amenazas (cuatro preguntas)</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm;
+      @top-left {
+        content: "Universidad del Valle · Módulo Tres · Punto 4";
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @top-right {
+        content: "FinanCali S.A.S. · Scoring crediticio";
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @bottom-center {
+        content: counter(page);
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 9pt;
+        color: #596573;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+    body {
+      margin: 0;
+      color: #1c1917;
+      font-family: "Liberation Serif", "Times New Roman", serif;
+      font-size: 10.5pt;
+      line-height: 1.42;
+    }
+    header {
+      border-top: 3px solid #1e3a5f;
+      padding-top: 10px;
+      margin-bottom: 14px;
+    }
+    .institution {
+      margin: 0 0 10px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 8.5pt;
+      line-height: 1.35;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 16.5pt;
+      line-height: 1.2;
+    }
+    .subtitle, .meta {
+      margin: 0 0 8px;
+      color: #3f4a57;
+      font-family: "Liberation Sans", Arial, sans-serif;
+    }
+    .subtitle { font-size: 11pt; }
+    .meta { font-size: 9pt; line-height: 1.4; }
+    h2 {
+      margin: 17px 0 6px;
+      padding-top: 4px;
+      border-top: 1px solid #d6d3cd;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 13pt;
+      page-break-after: avoid;
+    }
+    h3 {
+      margin: 12px 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 11.2pt;
+      page-break-after: avoid;
+    }
+    p { margin: 0 0 8px; orphans: 3; widows: 3; }
+    ul, ol { margin: 4px 0 9px 1.25em; padding: 0; }
+    li { margin-bottom: 3px; }
+    code {
+      font-family: "Liberation Mono", monospace;
+      font-size: 8.8pt;
+    }
+    .scope {
+      margin: 12px 0;
+      padding: 8px 11px;
+      border-left: 3px solid #1e3a5f;
+      background: #f4f1ea;
+      font-size: 9.7pt;
+    }
+    .selection {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid #bad8ca;
+      background: #f0f7f3;
+      page-break-inside: avoid;
+    }
+    .selection strong {
+      color: #14533f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+    }
+    .alert {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid #e2c48a;
+      background: #fbf6ea;
+      page-break-inside: avoid;
+    }
+    table {
+      width: 100%;
+      margin: 7px 0 12px;
+      border-collapse: collapse;
+      font-size: 8.2pt;
+      line-height: 1.28;
+    }
+    caption {
+      margin-bottom: 4px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 8.7pt;
+      font-weight: 700;
+      text-align: left;
+    }
+    th {
+      padding: 5px 6px;
+      background: #1e3a5f;
+      color: white;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-weight: 600;
+      text-align: left;
+      vertical-align: top;
+    }
+    td {
+      padding: 5px 6px;
+      border-bottom: 1px solid #e2ded6;
+      vertical-align: top;
+    }
+    tr { break-inside: avoid; page-break-inside: avoid; }
+    tbody tr:nth-child(even) td { background: #faf8f5; }
+    .tag {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 7px;
+      background: #dcebe4;
+      color: #14533f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 7.7pt;
+      font-weight: 700;
+    }
+    .flow {
+      margin: 7px 0 11px;
+      padding: 9px 11px;
+      border: 1px solid #d7dde4;
+      background: #f2f6f9;
+      color: #263442;
+      font-family: "Liberation Mono", monospace;
+      font-size: 8.3pt;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      page-break-inside: avoid;
+    }
+    .refs {
+      font-size: 8.7pt;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="institution">
+      Universidad del Valle<br />
+      Facultad de Ingeniería — Escuela de Sistemas<br />
+      Maestría en Desarrollo de Aplicaciones Inteligentes<br />
+      Seguridad en el Desarrollo de Aplicaciones
+    </p>
+    <h1>Punto 4. Modelado de amenazas mediante el marco de las cuatro preguntas</h1>
+    <p class="subtitle">Módulo Tres: tareas de equipo púrpura para sistemas basados en IA</p>
+    <p class="meta">
+      Miguel Ángel Rincón — 2502619-7729<br />
+      Maria Paula Jimenez I — 2507713-7729<br />
+      David Steven Duran Vallejo — 2508228-7729
+    </p>
+  </header>
+
+  <div class="scope">
+    <strong>Alcance.</strong> Este documento es el modelado de amenazas del Módulo Tres. No sustituye el Punto 4 del Taller 2, que comparó cobertura normativa de NIST CSF 2.0 frente a IA. Aquí se responden las cuatro preguntas del marco [1] con el caso de uso del Punto 1, las técnicas ATLAS del Punto 2 y la evidencia púrpura del Punto 3. Las acciones defensivas se ubican en Identificar, Proteger y Detectar [2].
+  </div>
+
+  <h2>4.1. ¿Qué estamos construyendo?</h2>
+
+  <p>
+    FinanCali S.A.S. es una fintech colombiana ficticia de aproximadamente 50 personas cuya operación digital depende de la originación de crédito de consumo. El objeto de análisis es el scoring semiautónomo que asigna un puntaje de 0 a 100 y lo traduce en rechazo (&lt; 40), revisión humana (40–69) o aprobación automática (≥ 70). El modelo no otorga crédito por sí solo: la aprobación automática es una decisión de negocio asistida por el score, y la cola de revisión es el control humano residual [3].
+  </p>
+
+  <p>
+    El sistema de trabajo de este módulo no es una plataforma bancaria, sino un prototipo local equivalente en tres dimensiones exigidas por el enunciado: tipo de modelo, superficie de ataque y naturaleza de los datos. Implementa un <code>GradientBoostingClassifier</code> sobre 4.000 registros sintéticos, una API de inferencia y una interfaz web. El dataset no contiene nombre, documento, ubicación, sexo, edad ni nacionalidad. El prototipo no se conecta a centrales de riesgo ni produce efectos sobre solicitantes reales.
+  </p>
+
+  <table>
+    <caption>Tabla 1. Componentes que entran al modelado</caption>
+    <thead>
+      <tr><th style="width: 28%">Componente</th><th>Qué es en el laboratorio</th><th>Qué representaría en FinanCali</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Datos de entrenamiento</td>
+        <td>Generador sintético determinista, hash SHA-256.</td>
+        <td>Histórico de originación y etiquetas de resultado crediticio.</td>
+      </tr>
+      <tr>
+        <td>Pipeline y artefacto</td>
+        <td>Preparación + <code>GradientBoostingClassifier</code> versionado.</td>
+        <td>Entrenamiento por lotes, promoción de modelos y rollback.</td>
+      </tr>
+      <tr>
+        <td>Contrato de inferencia</td>
+        <td><code>POST /api/score</code> (defendido) y <code>/api/lab/vulnerable-score</code> (laboratorio).</td>
+        <td>Microservicio interno consumido por la aplicación de originación.</td>
+      </tr>
+      <tr>
+        <td>Variables de entrada</td>
+        <td>Declaradas por el solicitante; confiables vía perfil de laboratorio; <code>debt_ratio</code> derivado.</td>
+        <td>Formulario + consulta a buró + cálculos de política crediticia.</td>
+      </tr>
+      <tr>
+        <td>Salida</td>
+        <td>Score, probabilidad, decisión, versión, códigos de alerta.</td>
+        <td>Decisión asistida, explicación para analista y registro de auditoría.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Lo que se está construyendo, en términos de amenaza, es un <strong>límite de confianza</strong>: un canal que recibe datos del solicitante, los combina con señales que deberían ser ajenas a ese canal, y dispara una decisión con impacto financiero. El Taller 1 ya había identificado activos (datos, modelo, API, credenciales, nube) y una madurez inicial baja. El Módulo Dos eligió NIST CSF 2.0 y dejó abiertas las amenazas especializadas contra el modelo. Este Punto 4 cierra ese hueco con evidencia, no con un nuevo marco.
+  </p>
+
+  <h2>4.2. ¿Qué puede salir mal?</h2>
+
+  <p>
+    La respuesta no parte de una lista genérica de riesgos de inteligencia artificial. Parte de las tres técnicas de madurez <em>Realized</em> que el Punto 2 encontró factibles sobre componentes que existen [4]:
+  </p>
+
+  <table>
+    <caption>Tabla 2. Amenazas priorizadas (MITRE ATLAS 2026.09)</caption>
+    <thead>
+      <tr>
+        <th>Técnica</th>
+        <th>Qué puede salir mal</th>
+        <th>Actor y acceso</th>
+        <th>Impacto sobre FinanCali</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag">AML.T0043.003</span><br />Manual Modification<br />96/100 · ejercida en Punto 3</td>
+        <td>El solicitante o un intermediario altera variables confiables o derivadas hasta cruzar el umbral de aprobación.</td>
+        <td>Acceso ordinario al canal de solicitud. No necesita el modelo ni el dataset.</td>
+        <td>Aprobación indebida, elusión de revisión humana y pérdida directa.</td>
+      </tr>
+      <tr>
+        <td><span class="tag">AML.T0020</span><br />Training Data Poisoning<br />88/100 · no ejercida</td>
+        <td>Alguien con escritura sobre el histórico o el pipeline inserta o relabela muestras para sesgar el modelo publicado.</td>
+        <td>Privilegio interno, cuenta técnica o fuente externa incorporada al entrenamiento.</td>
+        <td>Errores persistentes, sesgo dirigido y dificultad de diagnóstico tras el despliegue.</td>
+      </tr>
+      <tr>
+        <td><span class="tag">AML.T0024.002</span><br />Extract AI Model<br />81/100 · no ejercida</td>
+        <td>Consultas repetidas a la API permiten entrenar un sustituto y ensayar evasiones fuera de línea.</td>
+        <td>Caja negra sobre el endpoint de inferencia. En el laboratorio no hay autenticación ni cuota.</td>
+        <td>Pérdida de propiedad del modelo y preparación silenciosa de AML.T0043.003.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    El Punto 3 convirtió la primera amenaza de hipótesis en hecho observable: 24 de 24 solicitudes de revisión pasaron a aprobación cuando el cliente controló indicador externo, moras, historia y <code>debt_ratio</code>. El incremento medio fue de 45,25 puntos. Eso descarta dos lecturas erróneas frecuentes. Primera: “el modelo tabular es demasiado simple para atacarlo”. Segunda: “basta validar rangos”. Los valores adversarios eran plausibles; el fallo fue de procedencia.
+  </p>
+
+  <p>
+    Otras técnicas se consideraron y se dejaron fuera con motivo: membresía e inversión del modelo son <em>Feasible</em> y el dataset es sintético; la optimización de caja negra es <em>Demonstrated</em>; prompt injection no aplica a un clasificador tabular. La denegación de servicio sobre el modelo aporta poco porque el artefacto es pequeño. El modelado no afirma que esas técnicas sean imposibles; afirma que no son las más pertinentes para este sistema en este momento.
+  </p>
+
+  <h2>4.3. ¿Qué vamos a hacer al respecto?</h2>
+
+  <p>
+    Cada amenaza priorizada se traduce en acciones de Identificar (saber qué hay que proteger y de dónde viene cada dato), Proteger (impedir el abuso en el borde o en el pipeline) y Detectar (observar el intento o su efecto). Gobernar, Responder y Recuperar siguen vigentes desde el Módulo Dos, pero este módulo pide explicitar ID, PR y DE [2].
+  </p>
+
+  <h3>AML.T0043.003 — Modificación manual de entradas</h3>
+
+  <table>
+    <caption>Tabla 3. Acciones para la técnica ejercida</caption>
+    <thead>
+      <tr>
+        <th style="width: 16%">Función</th>
+        <th style="width: 28%">Resultado CSF 2.0</th>
+        <th>Acción concreta en FinanCali / laboratorio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Identificar</td>
+        <td>ID.AM activos; ID.RA riesgos</td>
+        <td>Inventariar el endpoint de inferencia y clasificar cada variable como declarada, derivada o proveniente de fuente confiable. El Punto 2 y el diccionario del prototipo ya hacen esa partición.</td>
+      </tr>
+      <tr>
+        <td>Proteger</td>
+        <td>PR.DS datos; PR.AA acceso</td>
+        <td>Contrato público sin campos confiables (<code>ApplicantProvidedData</code>, <code>extra="forbid"</code>). Resolver historia, moras e indicador en servidor. Calcular <code>debt_ratio</code> a partir de obligaciones e ingreso. En producción, ligar esa resolución a identidad autenticada y a la consulta contractual con el buró —el selector <code>trusted_profile_id</code> solo vale para el laboratorio.</td>
+      </tr>
+      <tr>
+        <td>Detectar</td>
+        <td>DE.CM monitoreo; DE.AE eventos</td>
+        <td>Registrar <code>blocked_input_manipulation</code>, contar <code>blocked_manipulations</code> y comparar con Evidently la distribución de campos confiables. Un lote con indicador 100 y mora 0 de forma sistemática debe abrir revisión, no aprobación.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    La evidencia del Punto 3 muestra que Proteger en el contrato es el control que impide la decisión indebida. Detectar llega tarde si la ruta vulnerable ya respondió 200. Por eso la detección se coloca detrás del rechazo, no como sustituto.
+  </p>
+
+  <h3>AML.T0020 — Envenenamiento del entrenamiento</h3>
+
+  <table>
+    <caption>Tabla 4. Acciones para la amenaza persistente no ejercida</caption>
+    <thead>
+      <tr>
+        <th style="width: 16%">Función</th>
+        <th style="width: 28%">Resultado CSF 2.0</th>
+        <th>Acción concreta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Identificar</td>
+        <td>ID.AM; ID.RA</td>
+        <td>Inventario del dataset, semilla, función generadora o fuente histórica, etiqueta objetivo y ventana temporal. Conservar hash SHA-256 de cada versión autorizada —el laboratorio ya expone ese hash.</td>
+      </tr>
+      <tr>
+        <td>Proteger</td>
+        <td>PR.AA; PR.PS</td>
+        <td>Escritura mínima sobre datos y pipeline, separación de quien etiqueta y quien despliega, revisión de cambios y bloqueo de reentrenamiento desde la API de inferencia (hoy no existe ese endpoint, y debe seguir sin existir).</td>
+      </tr>
+      <tr>
+        <td>Detectar</td>
+        <td>DE.CM</td>
+        <td>Comparar ROC AUC, F1, Brier y tasa de aprobación por segmento contra la línea base antes de publicar una versión. Una mejora global con aprobación anómala en un perfil es señal de envenenamiento dirigido, no de “mejor desempeño”.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>AML.T0024.002 — Extracción del modelo</h3>
+
+  <table>
+    <caption>Tabla 5. Acciones para la amenaza de confidencialidad no ejercida</caption>
+    <thead>
+      <tr>
+        <th style="width: 16%">Función</th>
+        <th style="width: 28%">Resultado CSF 2.0</th>
+        <th>Acción concreta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Identificar</td>
+        <td>ID.AM</td>
+        <td>Inventariar quién puede llamar a <code>/api/score</code>, qué campos de salida son indispensables para el negocio y qué metadatos (probabilidad completa, versión, sensibilidad local) sobran para un cliente externo.</td>
+      </tr>
+      <tr>
+        <td>Proteger</td>
+        <td>PR.AA</td>
+        <td>Autenticación de servicio, autorización de mínimo privilegio, cuotas y rate limiting. En producción, no exponer la ruta de laboratorio. Reducir precisión de la probabilidad si el analista no la necesita a cuatro decimales.</td>
+      </tr>
+      <tr>
+        <td>Detectar</td>
+        <td>DE.CM; DE.AE</td>
+        <td>Alertar consultas sistemáticas, cobertura amplia del espacio de entradas y repetición de umbrales. Ese patrón es distinto de una originación legítima y precede a un modelo sustituto.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="flow">DECISIÓN DE DISEÑO DESPUÉS DE LOS PUNTOS 2 Y 3
+
+1. La API pública de scoring no recibe campos confiables ni derivados.
+2. La ruta vulnerable permanece etiquetada como laboratorio y no se documenta
+   como canal de negocio.
+3. Todo intento de inyectar esos campos genera 422 y un evento auditable.
+4. AML.T0020 y AML.T0024.002 se tratan como residuales: hay acciones ID/PR/DE
+   definidas, pero aún no hay prueba púrpura equivalente.
+5. El selector de perfil confiable no se presenta como control de identidad.</div>
+
+  <h2>4.4. ¿Hicimos un buen trabajo?</h2>
+
+  <p>
+    Esta pregunta se responde con la evaluación práctica, no con la coherencia narrativa del documento. El Punto 3 permite tres juicios distintos.
+  </p>
+
+  <h3>Qué sí quedó demostrado</h3>
+
+  <ul>
+    <li>
+      El modelado acertó al priorizar AML.T0043.003: era la técnica más accesible y, al probarla, desplazó el 100&nbsp;% de las decisiones de revisión a aprobación. Un análisis que hubiera empezado por envenenamiento habría sido más espectacular y menos representativo del adversario más probable.
+    </li>
+    <li>
+      El control propuesto en el Punto 2 no se quedó en recomendación. El contrato defendido rechazó 24 de 24 payloads adversarios y aceptó una petición válida. El criterio de aprobación se cumplió.
+    </li>
+    <li>
+      La herramienta no fue cosmética. Evidently midió deriva en las cuatro columnas atacadas (share = 1,00). Eso articula ofensiva (el ataque cambió la población de entrada) y defensa (el mismo monitor serviría en operación).
+    </li>
+  </ul>
+
+  <h3>Dónde el análisis todavía es incompleto</h3>
+
+  <table>
+    <caption>Tabla 6. Calidad del modelado a la luz del Punto 3</caption>
+    <thead>
+      <tr><th style="width: 32%">Afirmación previa</th><th>Qué dice ahora la evidencia</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>“Validar rangos no basta.”</td>
+        <td>Confirmado: los valores adversarios eran legales respecto del dominio y aun así cruzaron el umbral.</td>
+      </tr>
+      <tr>
+        <td>“Separar variables por procedencia contiene AML.T0043.003.”</td>
+        <td>Confirmado para el contrato HTTP. No confirmado para un selector de perfil que el usuario aún elige a mano.</td>
+      </tr>
+      <tr>
+        <td>“El envenenamiento es la amenaza de mayor impacto persistente.”</td>
+        <td>Sigue siendo un juicio de factibilidad, no un resultado empírico: no se ejecutó AML.T0020.</td>
+      </tr>
+      <tr>
+        <td>“La API sin cuota permite extracción.”</td>
+        <td>Plausible y no cerrado. El laboratorio sigue devolviendo probabilidad y versión, y no limita consultas.</td>
+      </tr>
+      <tr>
+        <td>“El prototipo equivale al caso de uso.”</td>
+        <td>Equivale en tipo de modelo, superficie y naturaleza de datos. No equivale en identidad, buró real, autenticación ni pérdida financiera.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert">
+    <strong>Juicio final.</strong> El trabajo es suficiente para la amenaza que se eligió ejercer y honesto sobre las que no. No es un modelado “completo” del scoring de FinanCali: faltan prueba de envenenamiento, prueba de extracción, enlace real de identidad y los controles de Gobernar/Responder/Recuperar que el Taller 2 ya había dejado abiertos (equidad, explicación utilizable, apelación, retiro del dato). Presentar el rechazo HTTP 422 como cierre de todo el riesgo de IA sería un mal trabajo. Presentarlo como evidencia de que la frontera de confianza es el control decisivo para AML.T0043.003 sí lo es.
+  </div>
+
+  <h3>Riesgo residual aceptado para el laboratorio</h3>
+
+  <ol>
+    <li>La ruta <code>/api/lab/vulnerable-score</code> permanece para reproducir el ejercicio; en cualquier uso fuera del curso debe eliminarse.</li>
+    <li><code>trusted_profile_id</code> no está ligado a una identidad: un usuario del laboratorio aún puede escoger el perfil <code>stable</code>.</li>
+    <li>No hay autenticación, cuota ni cifrado; no se deben extraer conclusiones de resistencia a AML.T0024.002.</li>
+    <li>Evidently detecta cambio de distribución, no atribuye dolo. Un analista humano sigue siendo necesario para interpretar la alerta.</li>
+  </ol>
+
+  <div class="selection">
+    <strong>Síntesis de las cuatro preguntas.</strong> Estamos construyendo un scoring tabular semiautónomo cuya decisión depende de datos que no deberían viajar en el mismo canal que la declaración del solicitante. Puede salir mal, de forma ya observada, la modificación manual de esas entradas; y de forma pertinente aunque no ejercida, el envenenamiento y la extracción. Vamos a separar procedencia en el contrato, resolver señales confiables en servidor, hashear el dataset, restringir el reentrenamiento y monitorear deriva e intentos bloqueados. Hicimos un buen trabajo sobre AML.T0043.003 y un trabajo todavía hipotético sobre las otras dos técnicas: esa diferencia queda explícita para no confundir un control verificado con un sistema seguro.
+  </div>
+
+  <h2>Referencias</h2>
+  <ol class="refs">
+    <li>Shostack, A. <em>Threat Modeling: Designing for Security</em>. El marco de las cuatro preguntas. Wiley, 2014. Recogido en el material del Módulo Tres, Universidad del Valle, 2026-II.</li>
+    <li>National Institute of Standards and Technology. <em>The NIST Cybersecurity Framework (CSF) 2.0</em>. NIST CSWP 29, 2024. Funciones Identificar, Proteger y Detectar.</li>
+    <li>FinanCali S.A.S. <em>Punto 1 — Definición del caso de uso de IA</em>. Artefacto académico del Módulo Tres.</li>
+    <li>FinanCali S.A.S. <em>Punto 2 — Análisis de factibilidad con MITRE ATLAS</em> y <em>Punto 3 — Evaluación práctica de equipo púrpura</em>.</li>
+    <li>MITRE ATLAS. <em>ATLAS Data 2026.09</em>. Técnicas AML.T0043.003, AML.T0020 y AML.T0024.002.</li>
+    <li>Universidad del Valle. <em>Módulo Tres: Tareas de equipo púrpura para sistemas basados en IA</em>. Seguridad en el Desarrollo de Aplicaciones, 2026-II.</li>
+  </ol>
+</body>
+</html>

@@ -7,7 +7,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.model import service
-from app.schemas import ScoreRequest, ScoreResponse
+from app.schemas import DefendedScoreRequest, ScoreRequest, ScoreResponse
 
 ROOT = Path(__file__).resolve().parent
 STATIC = ROOT / "static"
@@ -27,8 +27,9 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 async def validation_exception_handler(
     request: Request, exc: RequestValidationError
 ) -> JSONResponse:
-    if request.url.path == "/api/score":
-        service.register_invalid_request()
+    if request.url.path in {"/api/score", "/api/lab/vulnerable-score"}:
+        reason = "forbidden_or_invalid_fields"
+        service.register_invalid_request(request.url.path, reason)
     return JSONResponse(
         status_code=422,
         content=jsonable_encoder(
@@ -70,6 +71,21 @@ async def metrics() -> dict:
     }
 
 
+@app.get("/api/security-events")
+async def security_events() -> dict:
+    return {"events": service.security_events()}
+
+
 @app.post("/api/score", response_model=ScoreResponse)
-async def score(request: ScoreRequest) -> dict:
-    return service.score(request.application, request.thresholds)
+async def score(request: DefendedScoreRequest) -> dict:
+    return service.score_defended(request.applicant, request.trusted_profile_id)
+
+
+@app.post("/api/lab/vulnerable-score", response_model=ScoreResponse)
+async def vulnerable_score(request: ScoreRequest) -> dict:
+    """Ruta deliberadamente vulnerable, exclusiva para reproducir el ejercicio."""
+    return service.score(
+        request.application,
+        request.thresholds,
+        vulnerable_lab=True,
+    )

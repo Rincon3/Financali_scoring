@@ -1,6 +1,10 @@
 from enum import Enum
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+
+class StrictModel(BaseModel):
+    model_config = ConfigDict(extra="forbid")
 
 
 class EmploymentType(str, Enum):
@@ -16,7 +20,7 @@ class HousingType(str, Enum):
     family = "family"
 
 
-class CreditApplication(BaseModel):
+class CreditApplication(StrictModel):
     monthly_income: int = Field(3_800_000, ge=650_000, le=50_000_000)
     debt_ratio: float = Field(0.32, ge=0, le=1)
     employment_months: int = Field(36, ge=0, le=600)
@@ -30,7 +34,7 @@ class CreditApplication(BaseModel):
     housing_type: HousingType = HousingType.rent
 
 
-class DecisionThresholds(BaseModel):
+class DecisionThresholds(StrictModel):
     review_min: int = Field(40, ge=1, le=98)
     approval_min: int = Field(70, ge=2, le=99)
 
@@ -41,9 +45,30 @@ class DecisionThresholds(BaseModel):
         return self
 
 
-class ScoreRequest(BaseModel):
+class ScoreRequest(StrictModel):
     application: CreditApplication
     thresholds: DecisionThresholds = DecisionThresholds()
+
+
+class TrustedProfileId(str, Enum):
+    stable = "stable"
+    watch = "watch"
+    risk = "risk"
+
+
+class ApplicantProvidedData(StrictModel):
+    monthly_income: int = Field(3_800_000, ge=650_000, le=50_000_000)
+    employment_months: int = Field(36, ge=0, le=600)
+    requested_amount: int = Field(8_000_000, ge=200_000, le=100_000_000)
+    current_obligations: int = Field(1_200_000, ge=0, le=50_000_000)
+    savings_balance: int = Field(2_500_000, ge=0, le=200_000_000)
+    employment_type: EmploymentType = EmploymentType.salaried
+    housing_type: HousingType = HousingType.rent
+
+
+class DefendedScoreRequest(StrictModel):
+    applicant: ApplicantProvidedData
+    trusted_profile_id: TrustedProfileId = TrustedProfileId.stable
 
 
 class SensitivityItem(BaseModel):

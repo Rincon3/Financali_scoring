@@ -24,7 +24,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
-from app.schemas import CreditApplication, DecisionThresholds
+from app.schemas import (
+    ApplicantProvidedData,
+    CreditApplication,
+    DecisionThresholds,
+    TrustedProfileId,
+)
 
 RANDOM_SEED = 2026
 DATASET_SIZE = 4_000
@@ -42,6 +47,24 @@ NUMERIC_FEATURES = [
 ]
 CATEGORICAL_FEATURES = ["employment_type", "housing_type"]
 FEATURES = NUMERIC_FEATURES + CATEGORICAL_FEATURES
+
+TRUSTED_PROFILES = {
+    TrustedProfileId.stable: {
+        "credit_history_months": 48,
+        "late_payments_12m": 0,
+        "external_risk_score": 72,
+    },
+    TrustedProfileId.watch: {
+        "credit_history_months": 24,
+        "late_payments_12m": 1,
+        "external_risk_score": 55,
+    },
+    TrustedProfileId.risk: {
+        "credit_history_months": 12,
+        "late_payments_12m": 3,
+        "external_risk_score": 35,
+    },
+}
 
 FEATURE_LABELS = {
     "monthly_income": "Ingreso mensual",
@@ -232,28 +255,53 @@ class ScoringService:
         self._lock = threading.Lock()
         self._requests = 0
         self._invalid_requests = 0
+        self._blocked_manipulations = 0
+        self._vulnerable_lab_requests = 0
         self._decisions = {"reject": 0, "review": 0, "approve": 0}
         self._last_scored_at: str | None = None
+        self._security_events: list[dict] = []
 
-    def register_invalid_request(self) -> None:
+    def register_invalid_request(
+        self, endpoint: str = "/api/score", reason: str = "contract_validation"
+    ) -> None:
         with self._lock:
             self._invalid_requests += 1
+            if endpoint == "/api/score":
+                self._blocked_manipulations += 1
+                self._security_events.append(
+                    {
+                        "timestamp": datetime.now(UTC).isoformat(),
+                        "endpoint": endpoint,
+                        "event": "blocked_input_manipulation",
+                        "reason": reason,
+                    }
+                )
 
     def operational_metrics(self) -> dict:
         with self._lock:
             return {
                 "scoring_requests": self._requests,
                 "invalid_requests": self._invalid_requests,
+                "blocked_manipulations": self._blocked_manipulations,
+                "vulnerable_lab_requests": self._vulnerable_lab_requests,
                 "decisions": self._decisions.copy(),
                 "last_scored_at": self._last_scored_at,
             }
+
+    def security_events(self) -> list[dict]:
+        with self._lock:
+            return [event.copy() for event in self._security_events[-100:]]
 
     def predict_probability(self, values: dict) -> float:
         frame = pd.DataFrame([{feature: values[feature] for feature in FEATURES}])
         return float(self.bundle.pipeline.predict_proba(frame)[0, 1])
 
     def score(
-        self, application: CreditApplication, thresholds: DecisionThresholds
+        self,
+        application: CreditApplication,
+        thresholds: DecisionThresholds,
+        *,
+        vulnerable_lab: bool = False,
     ) -> dict:
         values = application.model_dump(mode="json")
         probability = self.predict_probability(values)
@@ -267,6 +315,8 @@ class ScoringService:
 
         with self._lock:
             self._requests += 1
+            if vulnerable_lab:
+                self._vulnerable_lab_requests += 1
             self._decisions[decision] += 1
             self._last_scored_at = datetime.now(UTC).isoformat()
 
@@ -282,6 +332,23 @@ class ScoringService:
                 "rechazar ni ofrecer crédito real."
             ),
         }
+
+    def score_defended(
+        self, applicant: ApplicantProvidedData, profile_id: TrustedProfileId
+    ) -> dict:
+        declared = applicant.model_dump(mode="json")
+        trusted = TRUSTED_PROFILES[profile_id]
+        # In production this profile would be bound to an authenticated identity and
+        # retrieved from an authoritative source; the selector exists only for the lab.
+        derived_debt_ratio = min(
+            round(declared["current_obligations"] / declared["monthly_income"], 4), 1
+        )
+        application = CreditApplication(
+            **declared,
+            **trusted,
+            debt_ratio=derived_debt_ratio,
+        )
+        return self.score(application, DecisionThresholds())
 
     def _reason_codes(self, values: dict) -> list[str]:
         reasons: list[str] = []

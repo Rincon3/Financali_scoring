@@ -24,6 +24,25 @@ def valid_payload() -> dict:
     }
 
 
+def defended_payload() -> dict:
+    vulnerable = valid_payload()["application"]
+    return {
+        "applicant": {
+            key: vulnerable[key]
+            for key in (
+                "monthly_income",
+                "employment_months",
+                "requested_amount",
+                "current_obligations",
+                "savings_balance",
+                "employment_type",
+                "housing_type",
+            )
+        },
+        "trusted_profile_id": "stable",
+    }
+
+
 def test_health_and_model_card() -> None:
     health = client.get("/health")
     card = client.get("/api/model-card")
@@ -35,7 +54,7 @@ def test_health_and_model_card() -> None:
 
 
 def test_score_contract() -> None:
-    response = client.post("/api/score", json=valid_payload())
+    response = client.post("/api/score", json=defended_payload())
 
     assert response.status_code == 200
     body = response.json()
@@ -46,8 +65,8 @@ def test_score_contract() -> None:
 
 def test_invalid_input_is_rejected_and_counted() -> None:
     before = client.get("/api/metrics").json()["operations"]["invalid_requests"]
-    payload = valid_payload()
-    payload["application"]["debt_ratio"] = 1.5
+    payload = defended_payload()
+    payload["applicant"]["external_risk_score"] = 100
 
     response = client.post("/api/score", json=payload)
     after = client.get("/api/metrics").json()["operations"]["invalid_requests"]
@@ -59,6 +78,49 @@ def test_invalid_input_is_rejected_and_counted() -> None:
 def test_threshold_order_is_validated() -> None:
     payload = valid_payload()
     payload["thresholds"] = {"review_min": 80, "approval_min": 70}
+
+    response = client.post("/api/lab/vulnerable-score", json=payload)
+
+    assert response.status_code == 422
+
+
+def test_vulnerable_lab_accepts_client_controlled_trusted_fields() -> None:
+    response = client.post("/api/lab/vulnerable-score", json=valid_payload())
+
+    assert response.status_code == 200
+
+
+def test_defended_route_records_forbidden_field_event() -> None:
+    before = client.get("/api/metrics").json()["operations"]["blocked_manipulations"]
+    payload = defended_payload()
+    payload["applicant"]["late_payments_12m"] = 0
+
+    response = client.post("/api/score", json=payload)
+    metrics = client.get("/api/metrics").json()["operations"]
+    events = client.get("/api/security-events").json()["events"]
+
+    assert response.status_code == 422
+    assert metrics["blocked_manipulations"] == before + 1
+    assert events[-1]["event"] == "blocked_input_manipulation"
+
+
+def test_vulnerable_trusted_field_manipulation_increases_score() -> None:
+    baseline = valid_payload()
+    attacked = valid_payload()
+    attacked["application"]["external_risk_score"] = 100
+    attacked["application"]["late_payments_12m"] = 0
+    attacked["application"]["credit_history_months"] = 240
+    attacked["application"]["debt_ratio"] = 0.05
+
+    baseline_body = client.post("/api/lab/vulnerable-score", json=baseline).json()
+    attacked_body = client.post("/api/lab/vulnerable-score", json=attacked).json()
+
+    assert attacked_body["score"] > baseline_body["score"]
+
+
+def test_valid_defended_request_does_not_accept_client_debt_ratio() -> None:
+    payload = defended_payload()
+    payload["applicant"]["debt_ratio"] = 0.01
 
     response = client.post("/api/score", json=payload)
 

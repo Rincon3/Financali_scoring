@@ -84,25 +84,18 @@ function serializeForm(form) {
   const data = new FormData(form);
   const numberFields = [
     "monthly_income",
-    "debt_ratio",
     "employment_months",
     "requested_amount",
-    "credit_history_months",
-    "late_payments_12m",
     "current_obligations",
     "savings_balance",
-    "external_risk_score",
   ];
-  const application = {};
-  for (const field of numberFields) application[field] = Number(data.get(field));
-  application.employment_type = data.get("employment_type");
-  application.housing_type = data.get("housing_type");
+  const applicant = {};
+  for (const field of numberFields) applicant[field] = Number(data.get(field));
+  applicant.employment_type = data.get("employment_type");
+  applicant.housing_type = data.get("housing_type");
   return {
-    application,
-    thresholds: {
-      review_min: Number(data.get("review_min")),
-      approval_min: Number(data.get("approval_min")),
-    },
+    applicant,
+    trusted_profile_id: data.get("trusted_profile_id"),
   };
 }
 
@@ -135,14 +128,6 @@ function renderResult(result, thresholds) {
 
 function bindForm() {
   const form = $("#score-form");
-  const debtRange = form.elements.debt_ratio;
-  const riskRange = form.elements.external_risk_score;
-  debtRange.addEventListener("input", () => {
-    $("#debt-ratio-output").textContent = `${Math.round(Number(debtRange.value) * 100)}%`;
-  });
-  riskRange.addEventListener("input", () => {
-    $("#risk-score-output").textContent = `${riskRange.value} / 100`;
-  });
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -158,7 +143,7 @@ function bindForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      renderResult(result, payload.thresholds);
+      renderResult(result, { review_min: 40, approval_min: 70 });
       refreshOperations();
     } catch (requestError) {
       error.textContent = requestError.message;

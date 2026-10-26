@@ -20,24 +20,30 @@ Tres.
 - Hash SHA-256 del dataset y del modelo.
 - Contadores de solicitudes válidas, inválidas y decisiones.
 - Sensibilidad local experimental y reglas de alerta transparentes.
-- Pruebas automatizadas del modelo y del contrato API.
+- Contrato defendido: el cliente solo declara variables propias; historia, moras e indicador se resuelven en servidor y `debt_ratio` se deriva.
+- Evaluación púrpura reproducible de `AML.T0043.003` con Evidently.
+- Pruebas automatizadas del modelo, del contrato API y de la evidencia púrpura.
 
 ## Estructura
 
 ```text
 app/
-├── main.py              # FastAPI, endpoints y manejo de validación
+├── main.py              # FastAPI, endpoints defendido y de laboratorio
 ├── model.py             # Datos sintéticos, entrenamiento, métricas y scoring
 ├── schemas.py           # Contrato de entradas, umbrales y respuestas
 └── static/
     ├── index.html       # Interfaz
     ├── styles.css
     └── app.js
+purple-team/
+├── run_evaluation.py    # Ejercicio púrpura de modificación manual
+└── evidence/            # CSV, JSON, reporte Evidently
 tests/
 ├── test_api.py
-└── test_model.py
-modulo-3/                # Entregable académico del Punto 1
-punto-4/                 # Entregable del Punto 4 del Módulo Dos
+├── test_model.py
+└── test_purple_team.py
+modulo-3/                # Puntos 1 a 4 del Módulo Tres
+punto-4/                 # Punto 4 del Taller 2 (cobertura normativa)
 ```
 
 ## Ejecutar localmente
@@ -59,6 +65,19 @@ Abrir <http://127.0.0.1:43129>. La documentación interactiva de la API queda en
 ```bash
 python -m pytest -q
 ```
+
+## Evaluación púrpura (Punto 3)
+
+Compara la ruta de laboratorio insegura con el contrato defendido y genera
+evidencia de deriva con Evidently:
+
+```bash
+python purple-team/run_evaluation.py
+```
+
+La corrida registra cruces de umbral en `/api/lab/vulnerable-score`, rechazos 422
+en `/api/score` y el reporte `purple-team/evidence/evidently-report.html`.
+`/api/lab/vulnerable-score` existe solo para reproducir el ejercicio académico.
 
 ## Contrato mínimo de datos
 
@@ -96,19 +115,17 @@ dependería como mínimo de:
 La exactitud o el ROC AUC por sí solos no prueban que un modelo sea justo,
 calibrado, seguro ni jurídicamente admisible.
 
-## Próximos ejercicios de seguridad
+## Ejercicios de seguridad del Módulo Tres
 
 La arquitectura deja observables cuatro componentes: dataset, pipeline,
-artefacto del modelo y API de inferencia. Esto permite construir los puntos
-siguientes del Módulo Tres:
+artefacto del modelo y API de inferencia. Sobre esa superficie:
 
-1. ejecutar la técnica priorizada `AML.T0043.003 — Manual Modification`;
-2. aplicar controles ofensivos y defensivos;
-3. comparar evidencia antes y después;
-4. mapear acciones a Identificar, Proteger y Detectar de NIST CSF 2.0.
+1. el Punto 2 priorizó `AML.T0043.003`, `AML.T0020` y `AML.T0024.002`;
+2. el Punto 3 ejecutó la modificación manual de entradas y verificó el control;
+3. el Punto 4 responde las cuatro preguntas del modelado de amenazas y mapea
+   defensas a Identificar, Proteger y Detectar de NIST CSF 2.0.
 
-El análisis del Punto 2 también conserva como amenazas pertinentes
-`AML.T0020 — Training Data Poisoning` y `AML.T0024.002 — Extract AI Model`.
+`AML.T0020` y `AML.T0024.002` siguen como amenazas pertinentes no ejercidas.
 
 ## Documentos académicos
 
@@ -116,7 +133,11 @@ El análisis del Punto 2 también conserva como amenazas pertinentes
 - `modulo-3/punto-1.html`
 - `modulo-3/Punto-2-Analisis-factibilidad-MITRE-ATLAS.pdf`
 - `modulo-3/punto-2.html`
-- `punto-4/Punto-4-Aportes-normativos-y-brechas.pdf`
+- `modulo-3/Punto-3-Evaluacion-practica-equipo-purpura.pdf`
+- `modulo-3/punto-3.html`
+- `modulo-3/Punto-4-Modelado-de-amenazas-cuatro-preguntas.pdf`
+- `modulo-3/punto-4.html`
+- `punto-4/Punto-4-Aportes-normativos-y-brechas.pdf` (Taller 2)
 - `punto-4/punto-4.html`
 
 Para regenerar los PDF:
@@ -124,5 +145,7 @@ Para regenerar los PDF:
 ```bash
 python modulo-3/render-punto-1.py
 python modulo-3/render-punto-2.py
+python modulo-3/render-punto-3.py
+python modulo-3/render-punto-4.py
 python punto-4/render.py
 ```

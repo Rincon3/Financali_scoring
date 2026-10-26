@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Módulo Tres · Punto 3 · Evaluación práctica de equipo púrpura</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm;
+      @top-left {
+        content: "Universidad del Valle · Módulo Tres · Punto 3";
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @top-right {
+        content: "FinanCali S.A.S. · Scoring crediticio";
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @bottom-center {
+        content: counter(page);
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 9pt;
+        color: #596573;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+    body {
+      margin: 0;
+      color: #1c1917;
+      font-family: "Liberation Serif", "Times New Roman", serif;
+      font-size: 10.5pt;
+      line-height: 1.42;
+    }
+    header {
+      border-top: 3px solid #1e3a5f;
+      padding-top: 10px;
+      margin-bottom: 14px;
+    }
+    .institution {
+      margin: 0 0 10px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 8.5pt;
+      line-height: 1.35;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 16.5pt;
+      line-height: 1.2;
+    }
+    .subtitle, .meta {
+      margin: 0 0 8px;
+      color: #3f4a57;
+      font-family: "Liberation Sans", Arial, sans-serif;
+    }
+    .subtitle { font-size: 11pt; }
+    .meta { font-size: 9pt; line-height: 1.4; }
+    h2 {
+      margin: 17px 0 6px;
+      padding-top: 4px;
+      border-top: 1px solid #d6d3cd;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 13pt;
+      page-break-after: avoid;
+    }
+    h3 {
+      margin: 12px 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 11.2pt;
+      page-break-after: avoid;
+    }
+    p { margin: 0 0 8px; orphans: 3; widows: 3; }
+    ul, ol { margin: 4px 0 9px 1.25em; padding: 0; }
+    li { margin-bottom: 3px; }
+    code {
+      font-family: "Liberation Mono", monospace;
+      font-size: 8.8pt;
+    }
+    .scope {
+      margin: 12px 0;
+      padding: 8px 11px;
+      border-left: 3px solid #1e3a5f;
+      background: #f4f1ea;
+      font-size: 9.7pt;
+    }
+    .selection {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid #bad8ca;
+      background: #f0f7f3;
+      page-break-inside: avoid;
+    }
+    .selection strong {
+      color: #14533f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+    }
+    .alert {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid #e2c48a;
+      background: #fbf6ea;
+      page-break-inside: avoid;
+    }
+    table {
+      width: 100%;
+      margin: 7px 0 12px;
+      border-collapse: collapse;
+      font-size: 8.45pt;
+      line-height: 1.28;
+    }
+    caption {
+      margin-bottom: 4px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 8.7pt;
+      font-weight: 700;
+      text-align: left;
+    }
+    th {
+      padding: 5px 6px;
+      background: #1e3a5f;
+      color: white;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-weight: 600;
+      text-align: left;
+      vertical-align: top;
+    }
+    td {
+      padding: 5px 6px;
+      border-bottom: 1px solid #e2ded6;
+      vertical-align: top;
+    }
+    tr { break-inside: avoid; page-break-inside: avoid; }
+    tbody tr:nth-child(even) td { background: #faf8f5; }
+    .tag {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 7px;
+      background: #dcebe4;
+      color: #14533f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 7.7pt;
+      font-weight: 700;
+    }
+    .flow {
+      margin: 7px 0 11px;
+      padding: 9px 11px;
+      border: 1px solid #d7dde4;
+      background: #f2f6f9;
+      color: #263442;
+      font-family: "Liberation Mono", monospace;
+      font-size: 8.3pt;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      page-break-inside: avoid;
+    }
+    .refs {
+      font-size: 8.7pt;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="institution">
+      Universidad del Valle<br />
+      Facultad de Ingeniería — Escuela de Sistemas<br />
+      Maestría en Desarrollo de Aplicaciones Inteligentes<br />
+      Seguridad en el Desarrollo de Aplicaciones
+    </p>
+    <h1>Punto 3. Evaluación práctica de equipo púrpura</h1>
+    <p class="subtitle">Módulo Tres: tareas de equipo púrpura para sistemas basados en IA</p>
+    <p class="meta">
+      Miguel Ángel Rincón — 2502619-7729<br />
+      Maria Paula Jimenez I — 2507713-7729<br />
+      David Steven Duran Vallejo — 2508228-7729
+    </p>
+  </header>
+
+  <div class="scope">
+    <strong>Resultado.</strong> Se ejecutó AML.T0043.003 — Manual Modification sobre el prototipo local de FinanCali. En 24 solicitudes sintéticas cercanas al umbral de revisión, la ruta vulnerable cruzó el umbral de aprobación en el 100&nbsp;% de los casos (incremento medio de 45,25 puntos). El contrato defendido rechazó las mismas manipulaciones en el 100&nbsp;% de los intentos (HTTP 422). El criterio de aprobación se cumplió.
+  </div>
+
+  <h2>3.1. Objetivo de la prueba</h2>
+
+  <p>
+    El Punto 2 priorizó tres técnicas de madurez <em>Realized</em> y eligió <span class="tag">AML.T0043.003</span> para la evaluación práctica porque exige el menor privilegio y actúa sobre la superficie más expuesta: el contrato de inferencia [1]. El objetivo de este ejercicio no es “romper un modelo” en abstracto, sino comprobar una hipótesis concreta:
+  </p>
+
+  <p>
+    <em>Si un cliente puede enviar como propias las variables que deberían provenir de una fuente confiable o derivarse en servidor, entonces puede desplazar el score lo suficiente para cambiar una decisión automática. Si esas variables se retiran del contrato público, la misma manipulación no debe producir scoring.</em>
+  </p>
+
+  <p>
+    La prueba se ejecutó únicamente sobre el laboratorio propio del grupo, con datos sintéticos, sin titulares reales y sin efecto crediticio. La ruta <code>/api/lab/vulnerable-score</code> existe solo para reproducir el contrato inseguro documentado en el Punto 2; no representa un canal de producción.
+  </p>
+
+  <h2>3.2. Herramienta especializada y articulación púrpura</h2>
+
+  <p>
+    Se empleó <strong>Evidently 0.7.23</strong> como herramienta especializada de observabilidad para modelos predictivos [2]. El arnés de ataque es el cliente de pruebas de FastAPI (<code>TestClient</code>), que envía las solicitudes al prototipo local. Evidently no genera el ataque: compara las distribuciones de las variables confiables antes y después de la manipulación mediante <code>DataDriftPreset</code>.
+  </p>
+
+  <table>
+    <caption>Tabla 1. Distinción ofensiva y defensiva</caption>
+    <thead>
+      <tr>
+        <th style="width: 22%">Perspectiva</th>
+        <th style="width: 38%">Qué se hizo</th>
+        <th>Para qué sirve</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Roja (ofensiva)</td>
+        <td>Seleccionar 24 casos con score entre 25 y 69; forzar <code>external_risk_score=100</code>, <code>late_payments_12m=0</code>, historia crediticia ≥ 240 meses y <code>debt_ratio</code> ≤ 0,05; enviarlos a <code>/api/lab/vulnerable-score</code>.</td>
+        <td>Demostrar que la modificación manual de entradas no confiables cruza umbrales de decisión.</td>
+      </tr>
+      <tr>
+        <td>Azul (defensiva)</td>
+        <td>Repetir el mismo payload contra <code>/api/score</code>, cuyo contrato <code>ApplicantProvidedData</code> prohíbe campos extra, resuelve el perfil confiable en servidor y deriva <code>debt_ratio</code>.</td>
+        <td>Comprobar que la manipulación se rechaza y queda registrada como evento de seguridad.</td>
+      </tr>
+      <tr>
+        <td>Evidently (doble propósito)</td>
+        <td>Comparar las cuatro variables confiables de la muestra base con las de la muestra adversaria.</td>
+        <td>En ofensiva, prueba que el ataque alteró de forma estadísticamente detectable la entrada. En defensa, el mismo preset serviría para alertar deriva anómala de campos que el cliente no debería controlar.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    No se usó Adversarial Robustness Toolbox ni un ataque de caja negra sobre embeddings porque la técnica priorizada es modificación <em>manual</em> de un clasificador tabular. La herramienta debe observar el desplazamiento de las entradas y de la decisión, no buscar un mínimo adversarial en un espacio continuo.
+  </p>
+
+  <h2>3.3. Entradas y casos de prueba</h2>
+
+  <p>
+    El dataset es el conjunto sintético determinista de 4.000 registros ya usado para entrenar el <code>GradientBoostingClassifier</code>. De él se tomaron las 24 observaciones cuyo score de línea base está más cerca de los umbrales académicos 40 (revisión) y 70 (aprobación), restringidas al intervalo 25–69. En la corrida registrada, las 24 partieron de score 40 y decisión <code>review</code>: son exactamente el tipo de solicitud en el que un desplazamiento pequeño pero dirigido puede convertir revisión humana en aprobación automática.
+  </p>
+
+  <p>
+    Las variables declarables por el solicitante (<code>monthly_income</code>, <code>employment_months</code>, <code>requested_amount</code>, <code>current_obligations</code>, <code>savings_balance</code>, <code>employment_type</code>, <code>housing_type</code>) se dejaron intactas. El ataque se concentró en las cuatro variables que el Punto 2 clasificó como confiables o derivadas:
+  </p>
+
+  <ul>
+    <li><code>external_risk_score</code> — debería llegar de un buró o proveedor, no del formulario.</li>
+    <li><code>late_payments_12m</code> y <code>credit_history_months</code> — historia crediticia externa.</li>
+    <li><code>debt_ratio</code> — debe calcularse en servidor a partir de obligaciones e ingreso, no recibirse del cliente.</li>
+  </ul>
+
+  <div class="flow">CASO BASE (ruta vulnerable)
+POST /api/lab/vulnerable-score
+application = {todas las variables, incluidas las confiables}
+→ score 40 / review
+
+CASO ADVERSARIAL (misma ruta)
+external_risk_score=100; late_payments_12m=0;
+credit_history_months≥240; debt_ratio≤0.05
+→ score 76–90 / approve
+
+CONTROL (ruta defendida)
+POST /api/score
+applicant = {solo variables declaradas} + campos prohibidos
+→ HTTP 422 / blocked_input_manipulation</div>
+
+  <h2>3.4. Comportamiento esperado y criterio de aprobación</h2>
+
+  <table>
+    <caption>Tabla 2. Contrato de la prueba</caption>
+    <thead>
+      <tr><th style="width: 28%">Elemento</th><th>Definición previa a la ejecución</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Comportamiento esperado (vulnerable)</td>
+        <td>Al menos un caso debe cambiar de decisión al modificar campos confiables. Si ningún caso cruza umbral, la técnica no quedaría demostrada en este prototipo.</td>
+      </tr>
+      <tr>
+        <td>Comportamiento esperado (defendido)</td>
+        <td>Toda petición que intente enviar <code>external_risk_score</code>, <code>late_payments_12m</code>, <code>credit_history_months</code> o <code>debt_ratio</code> desde el cliente debe rechazarse. Una petición válida, sin esos campos, debe responder HTTP 200.</td>
+      </tr>
+      <tr>
+        <td>Criterio de aprobación</td>
+        <td>Cruces de umbral en la ruta vulnerable &gt; 0; rechazos en <code>/api/score</code> = 100&nbsp;% de los intentos; solicitud defendida válida = HTTP 200.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Ese criterio corresponde al enunciado propuesto en el Punto 2: el sistema no acepta desde el cliente variables clasificadas como externas o derivadas; la discrepancia produce rechazo y un evento auditable.
+  </p>
+
+  <h2>3.5. Evidencia de ejecución</h2>
+
+  <p>
+    El script reproducible es <code>purple-team/run_evaluation.py</code>. La corrida del 26 de octubre de 2026 produjo:
+  </p>
+
+  <ul>
+    <li><code>purple-team/evidence/evaluation-summary.json</code> — resultado agregado y veredicto del criterio.</li>
+    <li><code>purple-team/evidence/attack-attempts.csv</code> — 24 filas con scores, decisiones, deltas y código HTTP de ambas rutas.</li>
+    <li><code>purple-team/evidence/evidently-report.json</code> y <code>evidently-report.html</code> — prueba de deriva sobre las cuatro variables confiables.</li>
+  </ul>
+
+  <table>
+    <caption>Tabla 3. Resultado agregado</caption>
+    <thead>
+      <tr><th>Métrica</th><th>Valor observado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Casos evaluados</td><td>24</td></tr>
+      <tr><td>Cruces de umbral en ruta vulnerable</td><td>24 (100&nbsp;%)</td></tr>
+      <tr><td>Rechazos en ruta defendida</td><td>24 (HTTP 422, 100&nbsp;%)</td></tr>
+      <tr><td>Solicitud defendida válida</td><td>HTTP 200</td></tr>
+      <tr><td>Delta de score (mín. / media / máx.)</td><td>+36 / +45,25 / +50</td></tr>
+      <tr><td>Decisión base → adversaria</td><td><code>review</code> → <code>approve</code> en los 24 casos</td></tr>
+      <tr><td>Columnas con deriva (Evidently)</td><td>4 de 4 (share = 1,00; umbral del test = 0,50)</td></tr>
+      <tr><td>Criterio de aprobación</td><td>Cumplido</td></tr>
+    </tbody>
+  </table>
+
+  <table>
+    <caption>Tabla 4. Muestra de intentos (ruta vulnerable frente a control)</caption>
+    <thead>
+      <tr>
+        <th>Caso</th>
+        <th>Score base</th>
+        <th>Decisión base</th>
+        <th>Score atacado</th>
+        <th>Decisión atacada</th>
+        <th>Δ</th>
+        <th>Control</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>40</td><td>review</td><td>87</td><td>approve</td><td>+47</td><td>422 blocked</td></tr>
+      <tr><td>7</td><td>40</td><td>review</td><td>78</td><td>approve</td><td>+38</td><td>422 blocked</td></tr>
+      <tr><td>10</td><td>40</td><td>review</td><td>76</td><td>approve</td><td>+36</td><td>422 blocked</td></tr>
+      <tr><td>15</td><td>40</td><td>review</td><td>90</td><td>approve</td><td>+50</td><td>422 blocked</td></tr>
+      <tr><td>22</td><td>40</td><td>review</td><td>79</td><td>approve</td><td>+39</td><td>422 blocked</td></tr>
+      <tr><td>24</td><td>40</td><td>review</td><td>90</td><td>approve</td><td>+50</td><td>422 blocked</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Evidently rechazó el test “Share of Drifted Columns &lt; 0,50”: el valor observado fue 1,00. Los cuatro campos confiables fallaron la prueba de deriva (K-S para <code>debt_ratio</code>; chi-cuadrado para las demás), con p-valores del orden de 10<sup>−10</sup> o inferiores. Eso no “prueba intención maliciosa”; prueba que la población adversaria ya no es la misma que la de línea base en las variables que el cliente no debería poder fijar.
+  </p>
+
+  <h2>3.6. Hallazgos</h2>
+
+  <ol>
+    <li>
+      <strong>La amenaza del Punto 2 es real en este prototipo.</strong> No hizo falta acceso al modelo, al dataset ni a credenciales privilegiadas. Bastó enviar un JSON con campos que el contrato original aceptaba. Todas las solicitudes de revisión se convirtieron en aprobación.
+    </li>
+    <li>
+      <strong>Validar rangos no es una defensa.</strong> Los valores adversarios (indicador 100, cero moras, historia larga, deuda baja) son plausibles y habrían pasado cualquier chequeo de mínimo y máximo. El fallo está en la procedencia, no en el dominio.
+    </li>
+    <li>
+      <strong>El control por contrato funciona para esta técnica.</strong> <code>extra="forbid"</code> en Pydantic, la separación <code>ApplicantProvidedData</code> / perfil confiable y el cálculo de <code>debt_ratio</code> en servidor impidieron el scoring. El evento <code>blocked_input_manipulation</code> deja evidencia para Detectar.
+    </li>
+    <li>
+      <strong>El control no cubre las otras dos técnicas priorizadas.</strong> No se probó envenenamiento (AML.T0020) ni extracción del modelo (AML.T0024.002). El laboratorio sigue sin autenticación ni límite de consultas en la API defendida, porque esos controles corresponden a otras superficies.
+    </li>
+    <li>
+      <strong>El selector <code>trusted_profile_id</code> es un sustituto académico.</strong> En producción el perfil debería ligarse a una identidad autenticada y a una consulta autorizada al buró. Aquí el usuario aún puede elegir <code>stable</code>, <code>watch</code> o <code>risk</code>. Eso reduce, pero no elimina, la capacidad de influir en variables confiables.
+    </li>
+  </ol>
+
+  <div class="selection">
+    <strong>Veredicto de la prueba.</strong> El ejercicio púrpura aprueba el criterio definido: la técnica es explotable sobre el contrato inseguro y queda contenida por el contrato defendido. El hallazgo útil para el Punto 4 no es “el modelo es robusto”, sino que la frontera de confianza entre cliente y API es el control decisivo para AML.T0043.003.
+  </div>
+
+  <h2>3.7. Extrapolación al caso de uso</h2>
+
+  <p>
+    El prototipo es un sustituto local del scoring semiautónomo de FinanCali: mismo tipo de modelo (clasificación tabular), misma superficie (API de inferencia que recibe una solicitud y devuelve score y decisión) y misma naturaleza de los datos (variables financieras y crediticias, aquí sintéticas). Lo que sí se extrapola:
+  </p>
+
+  <ul>
+    <li>Si la API de originación acepta del canal digital el indicador externo, las moras o la relación deuda/ingreso, un solicitante o un intermediario puede ensayar aprobaciones sin comprometer el modelo.</li>
+    <li>La defensa primaria es de diseño de contrato e integridad de procedencia, no de regularización, adversarial training ni umbrales más estrictos.</li>
+    <li>Un monitor de deriva sobre campos confiables puede detectar lotes anómalos, pero no sustituye el rechazo en el borde. Evidently observó el cambio <em>después</em> de que la ruta vulnerable ya había decidido.</li>
+  </ul>
+
+  <div class="alert">
+    <strong>Lo que no se extrapola.</strong> Los deltas de +36 a +50 puntos dependen de este modelo sintético y de un ataque simultáneo a cuatro variables; no son una magnitud de pérdida esperada para FinanCali. Tampoco se afirma que un sistema productivo con integración real a centrales de riesgo sea hoy explotable de este modo. El selector de perfil, la ausencia de autenticación y la ruta de laboratorio son simplificaciones deliberadas. Un sistema real requeriría, además, enlace jurídico con el buró, registro inmutable, límites de tasa y revisión humana cuando haya inconsistencia entre lo declarado y lo consultado.
+  </div>
+
+  <h2>3.8. Reproducibilidad</h2>
+
+  <p>
+    Desde la raíz del repositorio:
+  </p>
+
+  <div class="flow">python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python purple-team/run_evaluation.py
+python -m pytest -q</div>
+
+  <p>
+    La evaluación no consulta sistemas de terceros ni usa datos personales. La ruta vulnerable debe permanecer confinada al laboratorio; si este código se reutilizara fuera del ejercicio, esa ruta tendría que eliminarse.
+  </p>
+
+  <h2>Referencias</h2>
+  <ol class="refs">
+    <li>MITRE ATLAS. <em>ATLAS Data 2026.09</em>. Técnica AML.T0043.003 Manual Modification. https://github.com/mitre-atlas/atlas-data/blob/main/dist/v6/ATLAS-2026.09.yaml</li>
+    <li>Evidently AI. <em>DataDriftPreset</em>, versión 0.7.23. Documentación del preset de deriva de datos.</li>
+    <li>Universidad del Valle. <em>Módulo Tres: Tareas de equipo púrpura para sistemas basados en IA</em>. Seguridad en el Desarrollo de Aplicaciones, 2026-II.</li>
+    <li>FinanCali S.A.S. <em>Punto 2 — Análisis de factibilidad con MITRE ATLAS</em>. Artefacto académico del Módulo Tres.</li>
+    <li>National Institute of Standards and Technology. <em>The NIST Cybersecurity Framework (CSF) 2.0</em>. NIST CSWP 29, 2024.</li>
+  </ol>
+</body>
+</html>

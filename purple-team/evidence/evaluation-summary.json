@@ -1,0 +1,35 @@
+{
+  "exercise": "AML.T0043.003 - Manual Modification",
+  "atlas_maturity": "Realized",
+  "cases": 24,
+  "vulnerable_route": "/api/lab/vulnerable-score",
+  "defended_route": "/api/score",
+  "threshold_crossings": 24,
+  "crossing_rate": 1.0,
+  "defended_rejections": 24,
+  "defended_rejection_rate": 1.0,
+  "valid_defended_request_http": 200,
+  "score_delta": {
+    "minimum": 36,
+    "maximum": 50,
+    "mean": 45.25
+  },
+  "acceptance_criterion_met": true,
+  "trusted_fields_blocked": [
+    "external_risk_score",
+    "late_payments_12m",
+    "credit_history_months",
+    "debt_ratio"
+  ],
+  "tool": {
+    "name": "Evidently",
+    "version": "0.7.23",
+    "purpose": "Comparar distribuciones de entradas base y manipuladas."
+  },
+  "limitations": [
+    "Datos, perfiles externos y ataques completamente sintéticos.",
+    "El selector de perfil confiable no está ligado a una identidad real.",
+    "La ruta vulnerable sólo debe existir en el laboratorio.",
+    "El reporte de deriva detecta cambios; no atribuye intención maliciosa."
+  ]
+}
