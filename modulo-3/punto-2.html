@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Módulo Tres · Punto 2 · Análisis de factibilidad con MITRE ATLAS</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm;
+      @top-left {
+        content: "Universidad del Valle · Módulo Tres · Punto 2";
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @top-right {
+        content: "FinanCali S.A.S. · Scoring crediticio";
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 8.5pt;
+        color: #596573;
+      }
+      @bottom-center {
+        content: counter(page);
+        font-family: "Liberation Sans", Arial, sans-serif;
+        font-size: 9pt;
+        color: #596573;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+    body {
+      margin: 0;
+      color: #1c1917;
+      font-family: "Liberation Serif", "Times New Roman", serif;
+      font-size: 10.5pt;
+      line-height: 1.42;
+    }
+    header {
+      border-top: 3px solid #1e3a5f;
+      padding-top: 10px;
+      margin-bottom: 14px;
+    }
+    .institution {
+      margin: 0 0 10px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 8.5pt;
+      line-height: 1.35;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 16.5pt;
+      line-height: 1.2;
+    }
+    .subtitle, .meta {
+      margin: 0 0 8px;
+      color: #3f4a57;
+      font-family: "Liberation Sans", Arial, sans-serif;
+    }
+    .subtitle { font-size: 11pt; }
+    .meta { font-size: 9pt; line-height: 1.4; }
+    h2 {
+      margin: 17px 0 6px;
+      padding-top: 4px;
+      border-top: 1px solid #d6d3cd;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 13pt;
+      page-break-after: avoid;
+    }
+    h3 {
+      margin: 12px 0 5px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 11.2pt;
+      page-break-after: avoid;
+    }
+    p { margin: 0 0 8px; orphans: 3; widows: 3; }
+    ul, ol { margin: 4px 0 9px 1.25em; padding: 0; }
+    li { margin-bottom: 3px; }
+    code {
+      font-family: "Liberation Mono", monospace;
+      font-size: 8.8pt;
+    }
+    .scope {
+      margin: 12px 0;
+      padding: 8px 11px;
+      border-left: 3px solid #1e3a5f;
+      background: #f4f1ea;
+      font-size: 9.7pt;
+    }
+    .selection {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid #bad8ca;
+      background: #f0f7f3;
+      page-break-inside: avoid;
+    }
+    .selection strong {
+      color: #14533f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      margin: 7px 0 12px;
+      border-collapse: collapse;
+      font-size: 8.45pt;
+      line-height: 1.28;
+    }
+    caption {
+      margin-bottom: 4px;
+      color: #1e3a5f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 8.7pt;
+      font-weight: 700;
+      text-align: left;
+    }
+    th {
+      padding: 5px 6px;
+      background: #1e3a5f;
+      color: white;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-weight: 600;
+      text-align: left;
+      vertical-align: top;
+    }
+    td {
+      padding: 5px 6px;
+      border-bottom: 1px solid #e2ded6;
+      vertical-align: top;
+    }
+    tr { break-inside: avoid; page-break-inside: avoid; }
+    tbody tr:nth-child(even) td { background: #faf8f5; }
+    .tag {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 7px;
+      background: #dcebe4;
+      color: #14533f;
+      font-family: "Liberation Sans", Arial, sans-serif;
+      font-size: 7.7pt;
+      font-weight: 700;
+    }
+    .flow {
+      margin: 7px 0 11px;
+      padding: 9px 11px;
+      border: 1px solid #d7dde4;
+      background: #f2f6f9;
+      color: #263442;
+      font-family: "Liberation Mono", monospace;
+      font-size: 8.3pt;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      page-break-inside: avoid;
+    }
+    .refs {
+      font-size: 8.7pt;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="institution">
+      Universidad del Valle<br />
+      Facultad de Ingeniería — Escuela de Sistemas<br />
+      Maestría en Desarrollo de Aplicaciones Inteligentes<br />
+      Seguridad en el Desarrollo de Aplicaciones
+    </p>
+    <h1>Punto 2. Análisis de factibilidad con MITRE ATLAS</h1>
+    <p class="subtitle">Módulo Tres: tareas de equipo púrpura para sistemas basados en IA</p>
+    <p class="meta">
+      Miguel Ángel Rincón — 2502619-7729<br />
+      Maria Paula Jimenez I — 2507713-7729<br />
+      David Steven Duran Vallejo — 2508228-7729
+    </p>
+  </header>
+
+  <div class="scope">
+    <strong>Resultado.</strong> Se seleccionan tres técnicas de MITRE ATLAS con madurez <em>Realized</em> y plataforma <em>Predictive AI</em>: modificación manual de entradas, envenenamiento de datos de entrenamiento y extracción del modelo. La selección se realizó sobre los componentes que existen en el prototipo ejecutable de FinanCali y no sobre amenazas genéricas de inteligencia artificial.
+  </div>
+
+  <h2>2.1. Método y fuente de evaluación</h2>
+
+  <p>
+    El análisis utiliza la distribución oficial MITRE ATLAS 2026.09 [1]. En esa versión, la madurez expresa el nivel de evidencia de uso de una técnica: <em>Feasible</em> corresponde a investigación o viabilidad técnica; <em>Demonstrated</em>, a una prueba o ejercicio sobre un sistema realista; y <em>Realized</em>, al uso observado por un actor de amenaza en un incidente real [1]. El Módulo Tres exige seleccionar entre dos y tres técnicas de madurez realizada; por ello, la madurez se utilizó como filtro y no como puntuación subjetiva.
+  </p>
+
+  <p>
+    Para comparar las técnicas que superaron ese filtro se definieron cinco criterios antes de puntuarlas. Cada criterio se valora de 1 a 5 y se pondera sobre 100 puntos:
+  </p>
+
+  <table>
+    <caption>Tabla 1. Criterios de priorización</caption>
+    <thead>
+      <tr>
+        <th style="width: 23%">Criterio</th>
+        <th style="width: 57%">Pregunta de evaluación</th>
+        <th style="width: 20%">Peso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alineación técnica</td>
+        <td>¿Existe en FinanCali el componente que la técnica necesita?</td>
+        <td>25 %</td>
+      </tr>
+      <tr>
+        <td>Facilidad de acceso</td>
+        <td>¿Qué privilegio o posición necesita el adversario?</td>
+        <td>20 %</td>
+      </tr>
+      <tr>
+        <td>Impacto</td>
+        <td>¿Puede alterar decisiones, confidencialidad o continuidad?</td>
+        <td>20 %</td>
+      </tr>
+      <tr>
+        <td>Reproducibilidad segura</td>
+        <td>¿Puede probarse localmente con datos sintéticos y sin afectar terceros?</td>
+        <td>20 %</td>
+      </tr>
+      <tr>
+        <td>Observabilidad defensiva</td>
+        <td>¿La prueba permite producir evidencia de Identificar, Proteger y Detectar?</td>
+        <td>15 %</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Superficie efectivamente disponible</h3>
+
+  <p>
+    El prototipo posee un dataset sintético determinista de 4.000 registros, un pipeline de entrenamiento por lotes, un <code>GradientBoostingClassifier</code>, una API <code>POST /api/score</code>, una interfaz web y métricas de línea base. La API valida rangos, pero acepta desde el cliente todas las variables, incluidas las que en un sistema real deberían provenir de fuentes confiables, como el indicador externo y las moras. Además, devuelve score, probabilidad y versión del modelo; no implementa autenticación, cuota de consultas ni limitación de tasa porque todavía es un laboratorio local.
+  </p>
+
+  <div class="flow">ENTRENAMIENTO
+Generador sintético → preparación → GradientBoostingClassifier
+→ métricas → artefacto lógico y hashes
+
+INFERENCIA
+Formulario / cliente → POST /api/score → validación de rangos
+→ probabilidad → score → aprobar / revisar / rechazar
+
+PUNTOS DE ACCESO
+Entrada pública simulada | repositorio/pipeline interno | API de inferencia</div>
+
+  <h2>2.2. Técnica 1 — Modificación manual de entradas</h2>
+
+  <p>
+    <span class="tag">AML.T0043.003 · Realized</span>
+    MITRE ATLAS describe esta técnica como la modificación manual de los datos de entrada usando conocimiento del modelo y prueba y error hasta conseguir una entrada adversarial funcional [1]. Está incluida en la táctica de preparación de datos adversariales y aplica a modelos predictivos.
+  </p>
+
+  <table>
+    <caption>Tabla 2. Factibilidad de AML.T0043.003</caption>
+    <thead>
+      <tr><th style="width: 25%">Aspecto</th><th>Análisis para FinanCali</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Componente afectado</td>
+        <td>Formulario de solicitud, contrato <code>ScoreRequest</code>, endpoint <code>/api/score</code> y umbrales de decisión.</td>
+      </tr>
+      <tr>
+        <td>Acceso requerido</td>
+        <td>Acceso ordinario al canal de solicitud o capacidad para enviar solicitudes HTTP. No requiere acceso al código, al modelo ni al dataset.</td>
+      </tr>
+      <tr>
+        <td>Exposición actual</td>
+        <td>Alta en el prototipo: todas las variables viajan en el cuerpo de la petición. En el caso conceptual sería media: la API es interna, pero recibe datos originados en la aplicación y en integraciones.</td>
+      </tr>
+      <tr>
+        <td>Ruta de ataque</td>
+        <td>Partir de una solicitud cercana al umbral y alterar iterativamente variables hasta pasar de rechazo o revisión a aprobación. Un caso crítico consiste en enviar como si fueran declaradas variables que deberían obtenerse del buró, por ejemplo <code>external_risk_score</code> o <code>late_payments_12m</code>.</td>
+      </tr>
+      <tr>
+        <td>Impacto</td>
+        <td>Aprobación incorrecta, pérdida financiera, elusión de la revisión humana y degradación de la confianza en el scoring.</td>
+      </tr>
+      <tr>
+        <td>Factibilidad</td>
+        <td><strong>Alta.</strong> El componente existe, la superficie es directamente accesible y la prueba puede realizarse con solicitudes sintéticas sin modificar el modelo.</td>
+      </tr>
+      <tr>
+        <td>Evidencia posible</td>
+        <td>Payload inicial y alterado, número de intentos, cambio del score, cruce de umbral, logs y respuesta del control defensivo.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    La defensa no debe limitarse a validar rangos. Las variables se deben clasificar por procedencia: declaradas por el solicitante, derivadas por FinanCali y obtenidas de fuentes confiables. El cliente no debería poder enviar directamente las dos últimas. También se requieren validaciones cruzadas, límites de consultas, detección de patrones iterativos y envío a revisión cuando haya inconsistencias.
+  </p>
+
+  <h2>2.3. Técnica 2 — Envenenamiento de datos de entrenamiento</h2>
+
+  <p>
+    <span class="tag">AML.T0020 · Realized</span>
+    ATLAS define el envenenamiento como agregar, eliminar o modificar muestras, etiquetas, anotaciones o procesos de recolección para influir en el comportamiento del modelo entrenado. El efecto puede persistir aun cuando el dato alterado ya no esté disponible [1].
+  </p>
+
+  <table>
+    <caption>Tabla 3. Factibilidad de AML.T0020</caption>
+    <thead>
+      <tr><th style="width: 25%">Aspecto</th><th>Análisis para FinanCali</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Componente afectado</td>
+        <td>Generación o carga del dataset, etiquetas de resultado, preparación, pipeline de entrenamiento y nueva versión del modelo.</td>
+      </tr>
+      <tr>
+        <td>Acceso requerido</td>
+        <td>Escritura sobre el dataset o pipeline, credenciales privilegiadas, compromiso del repositorio/CI o control de una fuente externa incorporada al entrenamiento.</td>
+      </tr>
+      <tr>
+        <td>Exposición actual</td>
+        <td>Baja para un atacante externo porque no existe endpoint de reentrenamiento. Media frente a un actor interno o una cuenta técnica comprometida. El Taller 1 ya identificó debilidades en accesos privilegiados al conjunto histórico.</td>
+      </tr>
+      <tr>
+        <td>Ruta de ataque</td>
+        <td>Cambiar un porcentaje de etiquetas, insertar registros dirigidos a un perfil o modificar la función generadora antes del entrenamiento. Después se publica una versión aparentemente válida.</td>
+      </tr>
+      <tr>
+        <td>Impacto</td>
+        <td>Errores persistentes, sesgo dirigido, aprobación de perfiles concretos, degradación global y dificultad para localizar la causa después del despliegue.</td>
+      </tr>
+      <tr>
+        <td>Factibilidad</td>
+        <td><strong>Media.</strong> El pipeline existe y la prueba es sencilla, pero el adversario necesita privilegios superiores a los de un solicitante.</td>
+      </tr>
+      <tr>
+        <td>Evidencia posible</td>
+        <td>Hash limpio y alterado, porcentaje envenenado, diferencias de ROC AUC/F1/Brier, tasa de aprobación por segmento y resultado del bloqueo del pipeline.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Los controles pertinentes son inventario y procedencia del dataset, permisos de escritura mínimos, hashes o versiones autorizadas, revisión de cambios, separación de funciones, validación de etiquetas y comparación automática contra una línea base antes de desplegar.
+  </p>
+
+  <h2>2.4. Técnica 3 — Extracción del modelo mediante la API</h2>
+
+  <p>
+    <span class="tag">AML.T0024.002 · Realized</span>
+    ATLAS establece que un adversario puede consultar repetidamente una API de inferencia, usar las respuestas como etiquetas y entrenar fuera de línea un modelo sustituto que imite al original [1].
+  </p>
+
+  <table>
+    <caption>Tabla 4. Factibilidad de AML.T0024.002</caption>
+    <thead>
+      <tr><th style="width: 25%">Aspecto</th><th>Análisis para FinanCali</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Componente afectado</td>
+        <td>Endpoint <code>/api/score</code>, salida probabilística, versión del modelo y ausencia de límites de consultas.</td>
+      </tr>
+      <tr>
+        <td>Acceso requerido</td>
+        <td>Acceso de caja negra a la API. No requiere pesos, código ni dataset original.</td>
+      </tr>
+      <tr>
+        <td>Exposición actual</td>
+        <td>Alta en el laboratorio local: no hay autenticación ni límite y se devuelve la probabilidad. Media en el caso conceptual porque la API es interna, pero una integración, credencial o servicio comprometido puede consultarla.</td>
+      </tr>
+      <tr>
+        <td>Ruta de ataque</td>
+        <td>Generar solicitudes sintéticas, registrar score/probabilidad, entrenar un modelo sustituto con esas respuestas y medir su acuerdo con FinanCali sobre un conjunto no utilizado en el copiado.</td>
+      </tr>
+      <tr>
+        <td>Impacto</td>
+        <td>Pérdida de propiedad intelectual y creación de un proxy para ensayar evasiones sin producir actividad visible sobre el sistema objetivo.</td>
+      </tr>
+      <tr>
+        <td>Factibilidad</td>
+        <td><strong>Media-alta.</strong> Es reproducible y observable, pero necesita un volumen de consultas y su impacto inmediato sobre decisiones es menor que el de la modificación de entradas.</td>
+      </tr>
+      <tr>
+        <td>Evidencia posible</td>
+        <td>Número de consultas, distribución de entradas, acuerdo entre modelo original y proxy, aproximación del score y alertas por patrón automatizado.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Las defensas incluyen autenticación por servicio, autorización de mínimo privilegio, cuotas, rate limiting, monitoreo de consultas similares o sistemáticas, reducción de precisión de la salida cuando sea compatible con el negocio y protección de metadatos que no necesita el cliente.
+  </p>
+
+  <h2>2.5. Comparación y priorización</h2>
+
+  <table>
+    <caption>Tabla 5. Matriz ponderada de factibilidad (escala relativa, no probabilidad estadística)</caption>
+    <thead>
+      <tr>
+        <th>Técnica</th>
+        <th>Madurez</th>
+        <th>Alineación<br />25 %</th>
+        <th>Acceso<br />20 %</th>
+        <th>Impacto<br />20 %</th>
+        <th>Prueba<br />20 %</th>
+        <th>Defensa<br />15 %</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AML.T0043.003<br />Modificación manual</td>
+        <td>Realized</td>
+        <td>5</td><td>5</td><td>4</td><td>5</td><td>5</td><td><strong>96/100</strong></td>
+      </tr>
+      <tr>
+        <td>AML.T0020<br />Envenenamiento</td>
+        <td>Realized</td>
+        <td>5</td><td>2</td><td>5</td><td>5</td><td>5</td><td><strong>88/100</strong></td>
+      </tr>
+      <tr>
+        <td>AML.T0024.002<br />Extracción del modelo</td>
+        <td>Realized</td>
+        <td>5</td><td>4</td><td>3</td><td>4</td><td>4</td><td><strong>81/100</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="selection">
+    <strong>Selección propuesta.</strong> Las tres técnicas avanzan como amenazas pertinentes del Punto 2. Para la evaluación práctica del Punto 3 se prioriza <strong>AML.T0043.003 — Manual Modification</strong>, porque exige el menor privilegio, actúa sobre la superficie más expuesta y permite comparar de forma segura una solicitud base con intentos de manipulación. AML.T0020 queda como segunda opción por su mayor impacto persistente, y AML.T0024.002 como escenario complementario de confidencialidad y preparación de ataques.
+  </div>
+
+  <h3>Escenario recomendado para el Punto 3</h3>
+
+  <ol>
+    <li>Construir solicitudes sintéticas cercanas a los umbrales de 40 y 70.</li>
+    <li>Separar variables declarables de variables confiables o derivadas.</li>
+    <li>Modificar de forma iterativa una variable por intento y registrar cada respuesta.</li>
+    <li>Comprobar si se cruza un umbral modificando campos que el cliente no debería controlar.</li>
+    <li>Aplicar el control defensivo: retirar esos campos del contrato público, resolverlos en servidor, validar coherencia y registrar intentos.</li>
+    <li>Repetir las pruebas y aprobar si ninguna manipulación de campos no confiables produce una decisión automática.</li>
+  </ol>
+
+  <p>
+    Un posible criterio de aprobación es: “El sistema no acepta desde el cliente variables clasificadas como externas o derivadas; toda discrepancia produce rechazo de la solicitud o revisión manual y genera un evento auditable”. Las entradas, respuestas, logs y comparación antes/después constituirán la evidencia del ejercicio púrpura.
+  </p>
+
+  <h2>2.6. Técnicas consideradas y no priorizadas</h2>
+
+  <table>
+    <thead>
+      <tr><th style="width: 28%">Técnica</th><th>Razón para no priorizarla</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AML.T0024.000<br />Infer Training Data Membership</td>
+        <td>Su madurez en ATLAS 2026.09 es <em>Feasible</em>, no <em>Realized</em>. Además, el prototipo solo contiene datos sintéticos y no existe afectación de privacidad a titulares reales.</td>
+      </tr>
+      <tr>
+        <td>AML.T0024.001<br />Invert AI Model</td>
+        <td>Madurez <em>Feasible</em> y baja pertinencia inmediata por la ausencia de información personal real en el entrenamiento.</td>
+      </tr>
+      <tr>
+        <td>AML.T0043.001<br />Black-Box Optimization</td>
+        <td>Madurez <em>Demonstrated</em>. Es técnicamente posible con ART, pero no satisface por sí sola el filtro principal del módulo.</td>
+      </tr>
+      <tr>
+        <td>Prompt injection y ataques a RAG</td>
+        <td>No aplican: FinanCali usa un clasificador tabular, no un modelo de lenguaje, RAG, prompts o agentes.</td>
+      </tr>
+      <tr>
+        <td>Denial of AI Service</td>
+        <td>Es una amenaza válida, pero el modelo es pequeño y su costo computacional es bajo. Aporta menos al análisis específico de seguridad del modelo que las tres técnicas seleccionadas.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2.7. Conclusión</h2>
+
+  <p>
+    La arquitectura implementada permite justificar tres técnicas realizadas de ATLAS sin inventar componentes. La modificación manual explota el límite de confianza entre el cliente y la API; el envenenamiento compromete la integridad del aprendizaje; y la extracción aprovecha la observación repetida de las salidas. Las tres cubren superficies diferentes y producen evidencia compatible con las funciones Identificar, Proteger y Detectar de NIST CSF 2.0.
+  </p>
+
+  <p>
+    La modificación manual se recomienda para la prueba práctica porque es la amenaza más accesible y directamente observable en el prototipo actual. Esta decisión no significa que sea el riesgo de mayor impacto absoluto: el envenenamiento podría ser más grave, pero requiere acceso privilegiado. La priorización expresa, por tanto, factibilidad para el ejercicio académico y no una estimación financiera de riesgo residual.
+  </p>
+
+  <h2>Referencias</h2>
+  <ol class="refs">
+    <li>MITRE ATLAS. <em>ATLAS Data 2026.09</em>. Técnicas AML.T0043.003, AML.T0020 y AML.T0024.002. https://github.com/mitre-atlas/atlas-data/blob/main/dist/v6/ATLAS-2026.09.yaml</li>
+    <li>Universidad del Valle. <em>Módulo Tres: Tareas de equipo púrpura para sistemas basados en IA</em>. Seguridad en el Desarrollo de Aplicaciones, 2026-II.</li>
+    <li>FinanCali S.A.S. <em>Punto 1 — Definición del caso de uso de IA</em>. Artefacto académico del Módulo Tres.</li>
+    <li>National Institute of Standards and Technology. <em>The NIST Cybersecurity Framework (CSF) 2.0</em>. NIST CSWP 29, 2024.</li>
+  </ol>
+</body>
+</html>

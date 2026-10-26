@@ -102,17 +102,20 @@ La arquitectura deja observables cuatro componentes: dataset, pipeline,
 artefacto del modelo y API de inferencia. Esto permite construir los puntos
 siguientes del Módulo Tres:
 
-1. analizar dos o tres técnicas de MITRE ATLAS;
-2. priorizar una amenaza según acceso y exposición;
-3. simularla en este entorno local;
-4. aplicar controles ofensivos y defensivos;
-5. comparar evidencia antes y después;
-6. mapear acciones a Identificar, Proteger y Detectar de NIST CSF 2.0.
+1. ejecutar la técnica priorizada `AML.T0043.003 — Manual Modification`;
+2. aplicar controles ofensivos y defensivos;
+3. comparar evidencia antes y después;
+4. mapear acciones a Identificar, Proteger y Detectar de NIST CSF 2.0.
+
+El análisis del Punto 2 también conserva como amenazas pertinentes
+`AML.T0020 — Training Data Poisoning` y `AML.T0024.002 — Extract AI Model`.
 
 ## Documentos académicos
 
 - `modulo-3/Punto-1-Definicion-del-caso-de-uso.pdf`
 - `modulo-3/punto-1.html`
+- `modulo-3/Punto-2-Analisis-factibilidad-MITRE-ATLAS.pdf`
+- `modulo-3/punto-2.html`
 - `punto-4/Punto-4-Aportes-normativos-y-brechas.pdf`
 - `punto-4/punto-4.html`
 
@@ -120,5 +123,6 @@ Para regenerar los PDF:
 
 ```bash
 python modulo-3/render-punto-1.py
+python modulo-3/render-punto-2.py
 python punto-4/render.py
 ```
